@@ -26,17 +26,17 @@
 # include "mlx.h"
 # include "libft.h"
 
-# define INVALID_ARGC    	"invalid or wrong number of arguments"
-# define FILE_NOT_FOUND  	"file not found or not a .ber file"
-# define MAP_IS_EMPTY    	"map is empty"
-# define NOT_A_RECTANGLE 	"map is not a rectangle"
-# define FD_ERROR        	"cannot open the file"
-# define MAP_NOT_CLOSED  	"map is not closed"
+# define WRONG_COLOR_VALUE		"Color values must be between 0 and 255"
+# define INVALID_MAP_CHARACTER 	"Invalid map character"
+# define INVALID_TEXTURE		"Invalid texture path"
+# define INVALID_COLOR			"Invalid color format"
+# define INVALID_ARGC    		"Invalid or wrong number of arguments"
 # define INCORRECT_VALUE		"incorrect value"
-# define GAME_EXIT			"incorrect exit ('E') value"
-# define GAME_PLAYER			"incorrect player ('P') value"
-# define GAME_COLLECTIBLE	"incorrect collectible ('C') value"
-# define CANT_REACH			"cant reach exit or collectible"
+# define NOT_A_RECTANGLE 		"Map is not a rectangle"
+# define FILE_NOT_FOUND  		"File not found or not a .cub file"
+# define MAP_NOT_CLOSED  		"Map is not closed"
+# define MAP_IS_EMPTY    		"Map is empty"
+# define FD_ERROR        		"Cannot open the file"
 
 # define DESTROY_NOTIFY		17
 
@@ -51,6 +51,38 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE		5
 # endif
+
+typedef struct s_textures
+{
+    char *north;
+    char *south;
+    char *west;
+    char *east;
+}	t_textures;
+
+typedef struct s_game
+{
+    t_textures textures;
+    int floor_color[3];		// Couleurs RGB sol
+    int ceiling_color[3];	// Couleurs RGB plafond
+    char **map;				// Tableau 2D de map
+} t_game;
+
+
+//______PARSING______
+// ---> args_checker.c
+bool	valid_args(int argc, char **argv);
+bool	valid_setup(int argc, char **argv);
+
+// ---> map_checker.c
+
+
+// ---> str_manager.c
+int	rev_strncmp(char *s1, char *s2, size_t n);
+
+// ---> gnl.c
+char	*get_next_line(int fd);
+
 
 
 #endif
