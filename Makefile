@@ -23,7 +23,9 @@ SRC_DIR = src/
 PAR_DIR = src/parsing/
 OBJ_DIR = obj/
 
-FILES =	main args_checker str_manager map_checker gnl
+FILES =	main args file\
+		texture color map\
+		str gnl utils
 
 PARS = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
@@ -58,7 +60,7 @@ fclean : clean
 re: fclean all
 
 valgrind: $(NAME)
-	valgrind --show-leak-kinds=all --leak-check=full --track-origins=yes --track-fds=yes --trace-children=yes ./$(NAME)
+	valgrind --show-leak-kinds=all --leak-check=full --track-origins=yes --track-fds=yes --trace-children=yes
 
 .PHONY: all clean fclean re bonus
 $(OBJS): | $(LIBFT)

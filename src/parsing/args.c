@@ -29,13 +29,18 @@ bool	valid_args(int argc, char **argv)
 	return (true);
 }
 
-bool valid_setup(int argc, char **argv)
+bool parsing(int argc, char **argv, t_game *game)
 {
 	if (valid_args(argc, argv) == false)
+	{
+		printf("***valid_args false***\n");
 		return (false);
+	}
 
-	// TODO lire le fichier dans valid_map avant de copier quoi que ce soit
-	//if (valid_map() == false)
-		//return fals
+	if (parse_file(argv[1], game) == false)
+	{
+		printf("***parse_file false***\n");
+		return false;
+	}
 	return (true);
 }

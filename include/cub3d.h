@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdbool.h>
+# include <ctype.h>
 # include <stdarg.h>
 # include <math.h>
 # include <fcntl.h>
@@ -26,17 +27,18 @@
 # include "mlx.h"
 # include "libft.h"
 
-# define WRONG_COLOR_VALUE		"Color values must be between 0 and 255"
-# define INVALID_MAP_CHARACTER 	"Invalid map character"
-# define INVALID_TEXTURE		"Invalid texture path"
-# define INVALID_COLOR			"Invalid color format"
-# define INVALID_ARGC    		"Invalid or wrong number of arguments"
-# define INCORRECT_VALUE		"incorrect value"
-# define NOT_A_RECTANGLE 		"Map is not a rectangle"
-# define FILE_NOT_FOUND  		"File not found or not a .cub file"
-# define MAP_NOT_CLOSED  		"Map is not closed"
-# define MAP_IS_EMPTY    		"Map is empty"
-# define FD_ERROR        		"Cannot open the file"
+# define WRONG_COLOR_VALUE		"Error\nColor values must be between 0 and 255"
+# define MISSING_TEXTURE        "Error\nMissing one or more textures"
+# define INVALID_MAP_CHARACTER 	"Error\nInvalid map character"
+# define INVALID_TEXTURE		"Error\nInvalid texture path"
+# define INVALID_COLOR			"Error\nInvalid color format"
+# define INVALID_ARGC    		"Error\nInvalid or wrong number of arguments"
+# define INCORRECT_VALUE		"Error\nincorrect value"
+# define NOT_A_RECTANGLE 		"Error\nMap is not a rectangle"
+# define FILE_NOT_FOUND  		"Error\nFile not found or not a .cub file"
+# define MAP_NOT_CLOSED  		"Error\nMap is not closed"
+# define MAP_IS_EMPTY    		"Error\nMap is empty"
+# define FD_ERROR        		"Error\nCannot open the file"
 
 # define DESTROY_NOTIFY		17
 
@@ -54,35 +56,59 @@
 
 typedef struct s_textures
 {
-    char *north;
-    char *south;
-    char *west;
-    char *east;
+	char *north;
+	char *south;
+	char *west;
+	char *east;
 }	t_textures;
 
 typedef struct s_game
 {
-    t_textures textures;
-    int floor_color[3];		// Couleurs RGB sol
-    int ceiling_color[3];	// Couleurs RGB plafond
-    char **map;				// Tableau 2D de map
+	t_textures textures;
+	int fd;
+	int floor_color[3];		// Couleurs RGB sol
+	int ceiling_color[3];	// Couleurs RGB plafond
+	char **map;				// Tableau 2D de map
 } t_game;
 
 
 //______PARSING______
-// ---> args_checker.c
+// ---> args.c
+bool	file_exists(char *filename);
 bool	valid_args(int argc, char **argv);
-bool	valid_setup(int argc, char **argv);
+bool	parsing(int argc, char**argv, t_game *game);
 
-// ---> map_checker.c
+// ---> file.c
+int     parse_line(char *line, t_game *game);
+int     parse_file(char *file_name, t_game *game);
 
 
-// ---> str_manager.c
-int	rev_strncmp(char *s1, char *s2, size_t n);
+// ---> texture.c
+int     check_texture(t_game *game);
+int     path_texture(char *line, char **texture);
+int		parse_texture(char *line, t_game *game);
+
+// ---> color.c
+int		three_colors(char **values);
+int		rgb_color(char *value, int *color);
+int		check_color(t_game *game);
+int		path_color(char *line, int color[3]);
+int		parse_color(char *line, t_game *game);
+
+// ---> map.c
+
+// ---> str.c
+int		rev_strncmp(char *s1, char *s2, size_t n);
+void	print_int_array(int *array, int size);
+void	free_split(char **tab);
 
 // ---> gnl.c
 char	*get_next_line(int fd);
 
+// ---> utils.c
+bool    is_numbr(char *str);
+bool	is_rgb(int c);
+char    *skip_spaces(char *line);
 
 
 #endif
