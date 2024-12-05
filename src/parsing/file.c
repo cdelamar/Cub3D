@@ -25,7 +25,6 @@ int parse_file(char *file_name, t_game *game)
     game->fd = open(file_name, O_RDONLY);
     while ((line = get_next_line(game->fd)))
     {
-        printf("line fd : %s\n", line);
         if (parse_line(line, game) == EXIT_FAILURE)
         {
             free(line);
@@ -46,7 +45,6 @@ int parse_file(char *file_name, t_game *game)
     if (map_start == -1)
     {
         ft_putendl_fd("Error\nNo valid map found in file.", 2);
-//        close(game->fd);
         close(game->map_fd);
         return (false);
     }

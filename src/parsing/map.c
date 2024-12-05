@@ -36,9 +36,7 @@ int find_map_start(int fd)
     while ((line = get_next_line(fd)))
     {
         line_num++;
-        // printf("Processing line %d: \"%s\"\n", line_num, line);
-
-        if (line && *line != '\0' && (is_empty_line(line) == false) && is_map_line(skip_spaces(line)))
+        if (line && (is_empty_line(line) == false) && is_map_line(skip_spaces(line)))
         {
             printf("Map start found on line %d: \"%s\"\n", line_num, line);
             free(line);

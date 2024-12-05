@@ -101,6 +101,7 @@ bool	is_map_line(char *line);
 int		find_map_start(int fd);
 
 // ---> str.c
+char	*copy_gnl_line(char *line);
 int		rev_strncmp(char *s1, char *s2, size_t n);
 void	print_int_array(int *array, int size);
 void	free_split(char **tab);

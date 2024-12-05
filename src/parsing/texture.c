@@ -34,7 +34,7 @@ int path_texture(char *line, char **texture)
         ft_putendl_fd("Error\nDuplicate texture identifier.", 2);
         return (EXIT_FAILURE);
     }
-    *texture = ft_strdup(line);
+    *texture = copy_gnl_line(line);
     if (!(*texture))
     {
         ft_putendl_fd("Error\nMemory allocation failed for texture.", 2);

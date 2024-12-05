@@ -1,5 +1,18 @@
 #include "cub3d.h"
 
+char *copy_gnl_line(char *line)
+{
+    char	*result;
+    int		len;
+
+    len = ft_strlen(line);
+    result = ft_strdup(line);
+
+	if (result[len - 1] == '\n')
+    	result[len - 1] = '\0';
+    return (result);
+}
+
 int	rev_strncmp(char *s1, char *s2, size_t n)
 {
 	size_t	len1;
