@@ -66,6 +66,7 @@ typedef struct s_game
 {
 	t_textures textures;
 	int fd;
+	int map_fd;
 	int floor_color[3];		// Couleurs RGB sol
 	int ceiling_color[3];	// Couleurs RGB plafond
 	char **map;				// Tableau 2D de map
@@ -96,6 +97,8 @@ int		path_color(char *line, int color[3]);
 int		parse_color(char *line, t_game *game);
 
 // ---> map.c
+bool	is_map_line(char *line);
+int		find_map_start(int fd);
 
 // ---> str.c
 int		rev_strncmp(char *s1, char *s2, size_t n);

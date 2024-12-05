@@ -2,10 +2,9 @@
 
 int parse_line(char *line, t_game *game)
 {
-	// Ignorer les lignes vides ou contenant uniquement des espaces
 	line = skip_spaces(line);
 	if (*line == '\0')
-		return (EXIT_SUCCESS); // TODO line[i] plus joli
+		return (EXIT_SUCCESS);
 
 	if (parse_texture(line, game) == EXIT_FAILURE)
 		return(EXIT_FAILURE);
@@ -13,35 +12,45 @@ int parse_line(char *line, t_game *game)
 	if (parse_color(line, game) == EXIT_FAILURE)
 		return(EXIT_FAILURE);
 
-	//return parse_map(line, game);
 	return (EXIT_SUCCESS);
 }
 
 int parse_file(char *file_name, t_game *game)
 {
-	char *line;
+    char *line;
+    int map_start;
+    //int line_num = 0;
 
-	game->fd = open(file_name, O_RDONLY);
-	if (game->fd < 0)
-	{
-		ft_putendl_fd("Error\nCannot open file.", 2);
-		return (false);
-	}
-	while ((line = get_next_line(game->fd)))
-	{
-		if (parse_line(line, game) == EXIT_FAILURE)
-		{
-			free(line);
-			return (false);
-		}
-		free(line);
-	}
-	close(game->fd);
-	if (check_texture(game) == EXIT_FAILURE)
-		return(EXIT_FAILURE);
-	if(check_color(game) == EXIT_FAILURE)
-		return(EXIT_FAILURE);
-	// if (check_map(game->map))
-		// return (false);
-	return (true);
+
+    game->fd = open(file_name, O_RDONLY);
+    while ((line = get_next_line(game->fd)))
+    {
+        printf("line fd : %s\n", line);
+        if (parse_line(line, game) == EXIT_FAILURE)
+        {
+            free(line);
+            close(game->fd);
+            return (false);
+        }
+        free(line);
+    }
+    if (check_texture(game) == EXIT_FAILURE)
+        return (EXIT_FAILURE);
+    if (check_color(game) == EXIT_FAILURE)
+        return (EXIT_FAILURE);
+
+    close (game->fd);
+
+    game->map_fd = open(file_name, O_RDONLY);
+    map_start = find_map_start(game->map_fd);
+    if (map_start == -1)
+    {
+        ft_putendl_fd("Error\nNo valid map found in file.", 2);
+//        close(game->fd);
+        close(game->map_fd);
+        return (false);
+    }
+
+    close(game->map_fd);
+    return (true);
 }
