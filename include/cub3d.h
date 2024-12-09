@@ -110,9 +110,11 @@ void	free_split(char **tab);
 char	*get_next_line(int fd);
 
 // ---> utils.c
+bool	is_empty_line(char *line);
 bool    is_numbr(char *str);
 bool	is_rgb(int c);
 char    *skip_spaces(char *line);
+void	*ft_realloc(void *ptr, size_t new_size);
 
 
 #endif

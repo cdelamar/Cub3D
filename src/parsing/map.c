@@ -1,18 +1,5 @@
 #include "cub3d.h"
 
-bool is_empty_line(char *line)
-{
-    if (!line)
-        return (true);
-    while (*line)
-    {
-        if (*line != ' ' && *line != '\n')
-            return (false);
-        line++;
-    }
-    return (true);
-}
-
 bool is_map_line(char *line)
 {
     int i;

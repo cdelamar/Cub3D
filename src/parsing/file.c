@@ -21,6 +21,7 @@ int parse_file(char *file_name, t_game *game)
     int map_start;
     //int line_num = 0;
 
+    // partie parsing textures / couleurs
 
     game->fd = open(file_name, O_RDONLY);
     while ((line = get_next_line(game->fd)))
@@ -39,6 +40,8 @@ int parse_file(char *file_name, t_game *game)
         return (EXIT_FAILURE);
 
     close (game->fd);
+
+    // partie parsing de map a refactoriser :
 
     game->map_fd = open(file_name, O_RDONLY);
     map_start = find_map_start(game->map_fd);
