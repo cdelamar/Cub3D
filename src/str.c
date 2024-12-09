@@ -56,6 +56,17 @@ void print_int_array(int *array, int size)
     printf("]\n");
 }
 
+void print_char_array(char **array)
+{
+    if (!array)
+        return;
+    while (*array)
+	{
+        printf("%s\n", *array);
+        array++;
+    }
+}
+
 void free_split(char **tab)
 {
 	int i;

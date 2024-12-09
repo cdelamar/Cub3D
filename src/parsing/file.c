@@ -17,42 +17,40 @@ int parse_line(char *line, t_game *game)
 
 int check_texture_colors(t_game *game)
 {
-    char *line;
+	char *line;
 
-    while ((line = get_next_line(game->fd)))
-    {
-        if (parse_line(line, game) == EXIT_FAILURE)
-        {
-            free(line);
-            close(game->fd);
-            return (false);
-        }
-        free(line);
-    }
-    if (check_texture(game) == EXIT_FAILURE)
-        return (EXIT_FAILURE);
-    if (check_color(game) == EXIT_FAILURE)
-        return (EXIT_FAILURE);
-    return (EXIT_SUCCESS);
+	while ((line = get_next_line(game->fd)))
+	{
+		if (parse_line(line, game) == EXIT_FAILURE)
+		{
+			free(line);
+			close(game->fd);
+			return (false);
+		}
+		free(line);
+	}
+	if (check_texture(game) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	if (check_color(game) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 int parse_file(char *file_name, t_game *game)
 {
-    // partie parsing textures / couleurs
+	// partie parsing textures / couleurs
+	game->fd = open(file_name, O_RDONLY);
 
-    game->fd = open(file_name, O_RDONLY);
+	if(check_texture_colors(game) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	close (game->fd);
 
-    if(check_texture_colors(game) == EXIT_FAILURE)
-        return (EXIT_FAILURE);
-    close (game->fd);
+	// partie parsing de map
+	game->map_fd = open(file_name, O_RDONLY);
 
-    // partie parsing de map
+	if (check_map(game) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	close(game->map_fd);
 
-    game->map_fd = open(file_name, O_RDONLY);
-
-    if (check_map(game) == EXIT_FAILURE)
-        return (EXIT_FAILURE);
-    close(game->map_fd);
-
-    return (true);
+	return (true);
 }

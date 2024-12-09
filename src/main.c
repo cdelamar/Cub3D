@@ -1,7 +1,5 @@
 #include "cub3d.h"
 
-
-
 void init_game(t_game *game)
 {
     game->textures.north = NULL;
@@ -15,19 +13,7 @@ void init_game(t_game *game)
     game->ceiling_color[1] = -1;
     game->ceiling_color[2] = -1;
     game->map = NULL;
-}
-
-void free_game(t_game *game)
-{
-    if (game->textures.north)
-		free(game->textures.north);
-    if (game->textures.south)
-		free(game->textures.south);
-    if (game->textures.west)
-		free(game->textures.west);
-    if (game->textures.east)
-		free(game->textures.east);
-    // ajouter plus tard
+    game->map_buffer = NULL;
 }
 
 int main (int argc, char **argv)
@@ -61,8 +47,10 @@ int main (int argc, char **argv)
   printf("ceiling : ");
   print_int_array(game->ceiling_color, 3);
 
+  printf("map :\n\n");
+  print_char_array(game->map);
 	free_game(game);
 	free(game);
-  printf("ok\n");
+  printf("\n\nok\n");
 	return (EXIT_SUCCESS);
 }

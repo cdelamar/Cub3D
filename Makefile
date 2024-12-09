@@ -25,7 +25,7 @@ OBJ_DIR = obj/
 
 FILES =	main args file\
 		texture color map\
-		str gnl utils
+		str gnl utils free\
 
 PARS = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
