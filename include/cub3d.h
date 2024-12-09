@@ -99,8 +99,8 @@ int		path_color(char *line, int color[3]);
 int		parse_color(char *line, t_game *game);
 
 // ---> map.c
-bool	is_map_line(char *line);
-int		find_map_start(int fd);
+bool	first_map_line(char *line);
+int		parse_map(t_game *game);
 int		check_map(t_game *game);
 
 // ---> str.c
