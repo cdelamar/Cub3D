@@ -15,15 +15,10 @@ int parse_line(char *line, t_game *game)
 	return (EXIT_SUCCESS);
 }
 
-int parse_file(char *file_name, t_game *game)
+int check_texture_colors(t_game *game)
 {
     char *line;
-    int map_start;
-    //int line_num = 0;
 
-    // partie parsing textures / couleurs
-
-    game->fd = open(file_name, O_RDONLY);
     while ((line = get_next_line(game->fd)))
     {
         if (parse_line(line, game) == EXIT_FAILURE)
@@ -38,20 +33,26 @@ int parse_file(char *file_name, t_game *game)
         return (EXIT_FAILURE);
     if (check_color(game) == EXIT_FAILURE)
         return (EXIT_FAILURE);
+    return (EXIT_SUCCESS);
+}
 
+int parse_file(char *file_name, t_game *game)
+{
+    // partie parsing textures / couleurs
+
+    game->fd = open(file_name, O_RDONLY);
+
+    if(check_texture_colors(game) == EXIT_FAILURE)
+        return (EXIT_FAILURE);
     close (game->fd);
 
-    // partie parsing de map a refactoriser :
+    // partie parsing de map
 
     game->map_fd = open(file_name, O_RDONLY);
-    map_start = find_map_start(game->map_fd);
-    if (map_start == -1)
-    {
-        ft_putendl_fd("Error\nNo valid map found in file.", 2);
-        close(game->map_fd);
-        return (false);
-    }
 
+    if (check_map(game) == EXIT_FAILURE)
+        return (EXIT_FAILURE);
     close(game->map_fd);
+
     return (true);
 }

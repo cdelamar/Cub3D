@@ -99,6 +99,7 @@ int		parse_color(char *line, t_game *game);
 // ---> map.c
 bool	is_map_line(char *line);
 int		find_map_start(int fd);
+int		check_map(t_game *game);
 
 // ---> str.c
 char	*copy_gnl_line(char *line);
