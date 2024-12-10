@@ -43,14 +43,20 @@ int parse_file(char *file_name, t_game *game)
 	game->fd = open(file_name, O_RDONLY);
 
 	if(check_texture_colors(game) == EXIT_FAILURE)
+	{
+		close(game->fd);
 		return (EXIT_FAILURE);
+	}
 	close (game->fd);
 
 	// partie parsing de map
 	game->map_fd = open(file_name, O_RDONLY);
 
 	if (check_map(game) == EXIT_FAILURE)
+	{
+		close(game->map_fd);
 		return (EXIT_FAILURE);
+	}
 	close(game->map_fd);
 
 	return (true);
