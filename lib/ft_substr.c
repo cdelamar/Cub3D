@@ -17,45 +17,31 @@
 /*sur la chaine '*s' copie en commencant a
 partir de 'start' sur 'len' caracteres*/
 
-char	*ft_substr(const char *s, unsigned int start, size_t len)
+char *ft_substr(const char *s, unsigned int start, size_t len)
 {
-	unsigned int	i;
-	unsigned int	j;
-	char			*str;
+    char *substr;
+    size_t i;
+    size_t s_len;
 
-	i = start;
-	j = 0;
-	if (start >= ft_strlen(s))
-	{
-		str = (char *)malloc(1);
-		if (!str)
-			return (NULL);
-		str[0] = '\0';
-		return (str);
-	}
-	str = (char *)malloc(len * sizeof(char) + 1);
-	if (!str)
-		return (NULL);
-	while (len > 0 && s[i])
-	{
-		str[j++] = s[i++];
-		len--;
-	}
-	str[j] = '\0';
-	return (str);
+    i = 0;
+    s_len = 0;
+    if (!s)
+        return (NULL);
+    while (s[s_len])
+        s_len++;
+    if (start >= s_len)
+        len = 0;
+    if (start + len > s_len)
+        len = s_len - start;
+    substr = (char *)malloc(len + 1);
+    if (!substr)
+        return (NULL);
+    while (i < len)
+    {
+        substr[i] = s[start + i];
+        i++;
+    }
+    substr[i] = '\0';
+    return (substr);
 }
-/*
-int	main(void)
-{
-		char tab[] = "test toast";
-		char *tab2;
 
-		tab2 = ft_substr(tab, 9999999, 99999);
-
-		printf("char *s : %s$\n", tab);
-		printf("returned : %s$\n", tab2);
-
-		free(tab2);
-
-		return (0);
-}*/

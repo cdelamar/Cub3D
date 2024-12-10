@@ -51,6 +51,6 @@ int main (int argc, char **argv)
   print_char_array(game->map);
 	free_game(game);
 	free(game);
-  printf("\n\nok\n");
+  printf("\nok\n");
 	return (EXIT_SUCCESS);
 }

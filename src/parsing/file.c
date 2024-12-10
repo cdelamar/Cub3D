@@ -33,6 +33,7 @@ int check_texture_colors(t_game *game)
 		return (EXIT_FAILURE);
 	if (check_color(game) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	free(line);
 	return (EXIT_SUCCESS);
 }
 

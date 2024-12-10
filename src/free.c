@@ -2,20 +2,19 @@
 
 void ft_freetab (char **tab)
 {
-	int i;
+    int i;
 
-	i = 0;
-
-	if(!tab[i])
-		return ;
-	while(tab[i])
-	{
-		if (!tab[i])
-			return ;
-		free (tab[i]);
-		i++;
-	}
-	return ;
+    i = 0;
+    if (!tab)
+        return;
+    while (tab[i] != NULL)
+    {
+        free(tab[i]);
+        tab[i] = NULL;
+        i++;
+    }
+    free(tab);
+    tab = NULL;
 }
 
 void *ft_realloc(void *ptr, size_t new_size)

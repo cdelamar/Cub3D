@@ -66,17 +66,3 @@ void print_char_array(char **array)
         array++;
     }
 }
-
-void free_split(char **tab)
-{
-	int i;
-
-	i = 0;
-	if(!tab[i])
-		return ;
-	while(tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-}

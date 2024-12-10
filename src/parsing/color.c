@@ -60,24 +60,27 @@ int path_color(char *line, int color[3])
 	if (!values)
 	{
 		ft_putendl_fd("Error\nMemory allocation failed for color parsing.", 2);
+		ft_freetab(values);
 		return (EXIT_FAILURE);
 	}
 
 	if(three_colors(values) == EXIT_FAILURE)
+	{
+		ft_freetab(values);
 		return (EXIT_FAILURE);
-
+	}
 	i = 0;
 	while (i < 3)
 	{
         if (rgb_color(values[i], &color[i]) == EXIT_FAILURE)
         {
-            free_split(values);
+            ft_freetab(values);
             return (EXIT_FAILURE);
         }
 		i++;
 	}
 
-	free_split(values);
+	ft_freetab(values);
 	return (EXIT_SUCCESS);
 }
 

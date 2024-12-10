@@ -32,13 +32,16 @@ int parse_map(t_game *game)
 				len = ft_strlen(line);
 				game->map_buffer = ft_realloc(game->map, sizeof(char *) * (len));
 				if (!game->map_buffer)
+				{
+					free(line);
 					return(EXIT_FAILURE);
+				}
 				game->map = game->map_buffer;
 				game->map[i] = line;
 				game->map[i][len - 1] = '\0';
 				i++;
+				// free(line);
 				line = get_next_line(game->map_fd);
-				printf("i number %d\n" , i);
 			}
 
 			game->map_buffer = ft_realloc(game->map, sizeof(char *) * (i + 2));
@@ -47,9 +50,9 @@ int parse_map(t_game *game)
 			free(line);
 			return (EXIT_SUCCESS);
 		}
-
-		//free(line);
+		free(line);
 	}
+	// free(line);
 	ft_putendl_fd("Error\n Proper map unsettled\n", 2);
 	return (-1);
 }
@@ -60,5 +63,10 @@ int check_map(t_game *game)
 	printf("debug test after find map\n");
 	if (parse_map(game) == -1)
 		return (EXIT_FAILURE);
+	// ici on rajoutera tous les prerequis
+	// pour bien verifier la map :
+	//. les bordures a 1
+	//. ft_strchr ("01NSEW", map[i][j])
+	//. etc
 	return(EXIT_SUCCESS);
 }
