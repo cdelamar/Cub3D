@@ -64,14 +64,20 @@ typedef struct s_textures
 
 typedef struct s_game
 {
-	char *file_name;
-	t_textures textures;
-	int fd;
-	int map_fd;
-	int floor_color[3];		// Couleurs RGB sol
-	int ceiling_color[3];	// Couleurs RGB plafond
-	char **map;				// Tableau 2D de map
-	char **map_buffer;
+	t_textures	textures;
+	char	*file_name;
+
+	int		fd;
+	int		map_fd;
+
+	int		floor_color[3];		// Couleurs RGB sol
+	int		ceiling_color[3];	// Couleurs RGB plafond
+
+	char	**map;				// Tableau 2D de map
+	char	**map_buffer;
+
+	void	*mlx;
+	void	*win;
 } t_game;
 
 
@@ -123,5 +129,9 @@ char    *skip_spaces(char *line);
 void	ft_freetab (char **tab);
 void	*ft_realloc(void *ptr, size_t new_size);
 void	free_game(t_game *game);
+
+// --->gameplay.c
+int		close_mlx (t_game *game);
+int		player_controls(int keysym, t_game *game);
 
 #endif

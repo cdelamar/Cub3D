@@ -40,7 +40,6 @@ int parse_map(t_game *game)
 				game->map[i] = line;
 				game->map[i][len - 1] = '\0';
 				i++;
-				// free(line);
 				line = get_next_line(game->map_fd);
 			}
 
@@ -52,7 +51,6 @@ int parse_map(t_game *game)
 		}
 		free(line);
 	}
-	// free(line);
 	ft_putendl_fd("Error\n Proper map unsettled\n", 2);
 	return (-1);
 }
@@ -60,7 +58,6 @@ int parse_map(t_game *game)
 
 int check_map(t_game *game)
 {
-	printf("debug test after find map\n");
 	if (parse_map(game) == -1)
 		return (EXIT_FAILURE);
 	// ici on rajoutera tous les prerequis
