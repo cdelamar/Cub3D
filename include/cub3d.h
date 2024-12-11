@@ -65,21 +65,35 @@ typedef struct s_textures
 	char *east;
 }	t_textures;
 
+typedef struct s_ray
+{
+	double camX;		// Coordonnée x dans l'espace caméra
+	double rayX;		// Direction du rayon sur l'axe X
+	double rayY;     	// Direction du rayon sur l'axe Y
+
+	double sideDistX;	// Distance initiale jusqu'à la première intersection X
+	double sideDistY;	// Distance initiale jusqu'à la première intersection Y
+	double deltaDistX;   // Distance entre deux intersections consécutives sur X
+	double deltaDistY;   // Distance entre deux intersections consécutives sur Y
+	double perpWallDist; // Distance perpendiculaire jusqu'au mur
+
+	int stepX;           // Direction à prendre sur l'axe X (1 ou -1)
+	int stepY;           // Direction à prendre sur l'axe Y (1 ou -1)
+	int hit;             // Indique si un mur a été touché (0 ou 1)
+	int side;            // Côté du mur touché (0 = NS, 1 = EW)
+
+	double planeX;			// camera plane
+	double planeY;
+} t_ray;
+
 typedef struct s_player
 {
 	double posX;	// vector
 	double posY;
 	double dirX;	// direction
 	double dirY;
-	double planeX;	// camera plane
-	double planeY;
-
 	double time;
 	double old_time;
-
-	double camX;
-	double rayX;
-	double rayY;
 }	t_player;
 
 typedef struct s_game
@@ -96,38 +110,25 @@ typedef struct s_game
 
 	char	**map;				// Tableau 2D de map
 	char	**map_buffer;
+	int		mapX;
+	int		mapY;
 
 	void	*mlx;
 	void	*win;
 } t_game;
 
+// ---> free.c
+void	ft_freetab (char **tab);
+void	*ft_realloc(void *ptr, size_t new_size);
+void	free_game(t_game *game);
 
-//______PARSING______
-// ---> args.c
-bool	file_exists(char *filename);
-bool	valid_args(int argc, char **argv);
-bool	parsing(int argc, char**argv, t_game *game);
+// ---> gnl.c
+char	*get_next_line(int fd);
 
-// ---> file.c
-int     parse_line(char *line, t_game *game);
-int     parse_file(char *file_name, t_game *game);
-
-// ---> texture.c
-int     check_texture(t_game *game);
-int     path_texture(char *line, char **texture);
-int		parse_texture(char *line, t_game *game);
-
-// ---> color.c
-int		three_colors(char **values);
-int		rgb_color(char *value, int *color);
-int		check_color(t_game *game);
-int		path_color(char *line, int color[3]);
-int		parse_color(char *line, t_game *game);
-
-// ---> map.c
-bool	first_map_line(char *line);
-int		parse_map(t_game *game);
-int		check_map(t_game *game);
+// ---> init.c
+void init_game(t_game *game);
+void init_player(t_player *player);
+void init_ray(t_ray *ray);
 
 // ---> str.c
 char	*copy_gnl_line(char *line);
@@ -136,8 +137,6 @@ void	print_int_array(int *array, int size);
 void	print_char_array(char **array);
 void	free_split(char **tab);
 
-// ---> gnl.c
-char	*get_next_line(int fd);
 
 // ---> utils.c
 bool	is_empty_line(char *line);
@@ -145,17 +144,47 @@ bool    is_numbr(char *str);
 bool	is_rgb(int c);
 char    *skip_spaces(char *line);
 
-// ---> free.c
-void	ft_freetab (char **tab);
-void	*ft_realloc(void *ptr, size_t new_size);
-void	free_game(t_game *game);
+// --- PARSING ---
+
+// ---> args.c
+bool	file_exists(char *filename);
+bool	valid_args(int argc, char **argv);
+bool	parsing(int argc, char**argv, t_game *game);
+
+// ---> color.c
+int		three_colors(char **values);
+int		rgb_color(char *value, int *color);
+int		check_color(t_game *game);
+int		path_color(char *line, int color[3]);
+int		parse_color(char *line, t_game *game);
+
+// ---> file.c
+int     parse_line(char *line, t_game *game);
+int     parse_file(char *file_name, t_game *game);
+
+// ---> map.c
+bool	first_map_line(char *line);
+int		parse_map(t_game *game);
+int		check_map(t_game *game);
+
+// ---> texture.c
+int     check_texture(t_game *game);
+int     path_texture(char *line, char **texture);
+int		parse_texture(char *line, t_game *game);
+
+// --- GAME ---
 
 // ---> gameplay.c
 int		close_mlx (t_game *game, t_player *player);
 int		player_controls(int keysym, t_game *game, t_player *player);
 
 // ---> hook.c
+int		close_mlx (t_game *game, t_player *player);
 int		quit_game(t_game *game, t_player *player);
-void	ft_mlx(t_game *game, t_player *player);
+void	ft_mlx(t_game *game, t_player *player, t_ray *ray);
+
+// ---> raycasting.c
+
+void raycast(t_game *game, t_player *player, t_ray *ray);
 
 #endif

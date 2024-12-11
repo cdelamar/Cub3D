@@ -19,17 +19,17 @@ CC = cc
 CFLAGS =	-g -Wall -Wextra -Werror -Iinclude
 LFLAGS =	-Llib -lft -lmlx_Linux -lX11 -lXext
 
-MLX_DIR = src/mlx_utils/
+GAM_DIR = src/game/
 PAR_DIR = src/parsing/
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-FILES =	main args file\
+FILES =	main args file init\
 		texture color map\
 		str gnl utils free\
-		gameplay hook\
+		gameplay hook raycasting\
 
-MLXS = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))
+GAME = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))
 PARS = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
@@ -53,7 +53,7 @@ $(OBJ_DIR)%.o: $(PAR_DIR)%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR)%.o: $(MLX_DIR)%.c
+$(OBJ_DIR)%.o: $(GAM_DIR)%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 

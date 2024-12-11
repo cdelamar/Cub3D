@@ -37,8 +37,6 @@ bool parsing(int argc, char **argv, t_game *game)
 		return (false);
 	}
 
-	//game->file_name = ft_strdup(argv[1]);
-	//printf("file : %s\n", game->file_name);
 	if (parse_file(argv[1], game) == false)
 	{
 		printf("***parse_file false***\n");
