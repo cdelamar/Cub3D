@@ -18,7 +18,7 @@ int main (int argc, char **argv)
 	init_player(player);
 	init_ray(ray);
 
-	printf("%f player\n", player->dirX);
+	// printf("%f player\n", player->dirX);
 
 	if(parsing(argc, argv, game) == false)
 	{
