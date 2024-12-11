@@ -40,7 +40,9 @@
 # define MAP_IS_EMPTY    		"Error\nMap is empty"
 # define FD_ERROR        		"Error\nCannot open the file"
 
-# define DESTROY_NOTIFY		17
+# define SCREEN_WIDTH			640
+# define SCREEN_HEIGHT			480
+
 
 # define ARROW_UP  				65362
 # define ARROW_DOWN  			65364
@@ -49,6 +51,7 @@
 
 # define KEY_Q					113
 # define KEY_ESCAPE  			65307
+# define DESTROY_NOTIFY			17
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE		5
@@ -62,9 +65,27 @@ typedef struct s_textures
 	char *east;
 }	t_textures;
 
+typedef struct s_player
+{
+	double posX;	// vector
+	double posY;
+	double dirX;	// direction
+	double dirY;
+	double planeX;	// camera plane
+	double planeY;
+
+	double time;
+	double old_time;
+
+	double camX;
+	double rayX;
+	double rayY;
+}	t_player;
+
 typedef struct s_game
 {
 	t_textures	textures;
+	t_player	player;
 	char	*file_name;
 
 	int		fd;
@@ -90,7 +111,6 @@ bool	parsing(int argc, char**argv, t_game *game);
 // ---> file.c
 int     parse_line(char *line, t_game *game);
 int     parse_file(char *file_name, t_game *game);
-
 
 // ---> texture.c
 int     check_texture(t_game *game);
@@ -130,8 +150,12 @@ void	ft_freetab (char **tab);
 void	*ft_realloc(void *ptr, size_t new_size);
 void	free_game(t_game *game);
 
-// --->gameplay.c
-int		close_mlx (t_game *game);
-int		player_controls(int keysym, t_game *game);
+// ---> gameplay.c
+int		close_mlx (t_game *game, t_player *player);
+int		player_controls(int keysym, t_game *game, t_player *player);
+
+// ---> hook.c
+int		quit_game(t_game *game, t_player *player);
+void	ft_mlx(t_game *game, t_player *player);
 
 #endif

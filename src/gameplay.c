@@ -1,23 +1,24 @@
 #include "cub3d.h"
 
-int	close_mlx (t_game *game)
+int	close_mlx (t_game *game, t_player *player)
 {
+	(void)player;
 	mlx_clear_window(game->mlx, game->win);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
 	free_game(game);
 	free(game);
+	printf("on sort\n");
+	//free(player);
 	exit(0);
 }
 
-int	player_controls(int keysym, t_game *game)
+int	player_controls(int keysym, t_game *game, t_player *player)
 {
-	(void)game;
 	if (keysym == KEY_ESCAPE)
 	{
-		close_mlx(game);
-		exit (0);
+		close_mlx(game, player);
 		// free_img_map(img);
 		// on_destroy(img);
 	}

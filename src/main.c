@@ -1,19 +1,18 @@
 #include "cub3d.h"
 
-int mlx_quit(t_game *game)
+void init_player(t_player *player)
 {
-	printf("test %s", game->file_name);
-	close_mlx(game);
-	return (EXIT_SUCCESS);
-}
-
-void	ft_mlx(t_game *game)
-{
-	mlx_hook(game->win, KeyPress, KeyPressMask, &player_controls, game);
-	mlx_hook(game->win, DestroyNotify, StructureNotifyMask, &close_mlx, game);
-	mlx_hook(game->win, 17, StructureNotifyMask, &mlx_quit, game);
-	//mlx_hook(game->win, 65307, KeyPressMask, ft_quit, game);
-	mlx_loop(game->mlx);
+	player->posX = 22;
+	player->posY = 12;
+	player->dirX = -1;
+	player->dirY = 0;
+	player->planeX = 0;
+	player->planeY = 0.66;
+	player->time = 0;
+	player->old_time = 0;
+	player->camX = 0;
+	player->rayX = 0;
+	player->rayY = 0;
 }
 
 void init_game(t_game *game)
@@ -35,31 +34,38 @@ void init_game(t_game *game)
 
 int main (int argc, char **argv)
 {
-	t_game *game;
-
+	t_game		*game;
+	t_player 	*player;
 	game = malloc(sizeof(t_game));
-	if (!game)
+	player = malloc(sizeof(t_player));
+	if (!game || !player)
 	{
 		ft_putendl_fd("Error\nMemory allocation failed", 2);
 		return (EXIT_FAILURE);
 	}
+
 	init_game(game);
+	init_player(player);
+	printf("%f player\n", player->dirX);
+
 	if(parsing(argc, argv, game) == false)
 	{
 		free_game(game);
 		free(game);
+		free(player);
 		return(EXIT_FAILURE);
 	}
 
 	else
 	{
 		game->mlx = mlx_init();
-		game->win = mlx_new_window(game->mlx, 900, 650, "Cub3D");
-		ft_mlx(game);
+		game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
+		ft_mlx(game, player);
 	}
 
 	free_game(game);
 	free(game);
+	free(player);
 	return (EXIT_SUCCESS);
 }
 
