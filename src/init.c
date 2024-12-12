@@ -27,6 +27,7 @@ void init_player(t_player *player)
 	player->old_time = 0;
 }
 
+/*
 void init_ray(t_ray *ray)
 {
 	ray->camX = 0;
@@ -43,4 +44,26 @@ void init_ray(t_ray *ray)
 	ray->side = 0;
 	ray->planeX = 0;
 	ray->planeY = 0.66;
+}
+*/
+
+void init_ray(t_ray *ray)
+{
+    // Initialisation des valeurs par défaut
+    ray->camX = 0;              // Coordonnée X dans l'espace caméra (départ à 0)
+    ray->rayX = 0;              // Direction du rayon sur l'axe X
+    ray->rayY = 0;              // Direction du rayon sur l'axe Y
+    ray->sideDistX = 0;         // Distance initiale jusqu'à la première intersection sur X
+    ray->sideDistY = 0;         // Distance initiale jusqu'à la première intersection sur Y
+    ray->deltaDistX = 0;        // Distance entre deux intersections consécutives sur X
+    ray->deltaDistY = 0;        // Distance entre deux intersections consécutives sur Y
+    ray->perpWallDist = 0;      // Distance perpendiculaire jusqu'au mur (à calculer)
+    ray->stepX = 0;             // Direction à prendre sur l'axe X (1 ou -1)
+    ray->stepY = 0;             // Direction à prendre sur l'axe Y (1 ou -1)
+    ray->hit = 0;               // Indique si un mur a été touché (0 ou 1)
+    ray->side = 0;              // Côté du mur touché (0 = NS, 1 = EW)
+    ray->planeX = 0;            // Valeur par défaut du plan caméra X
+    ray->planeY = 0.66;         // Valeur par défaut du plan caméra Y
+    ray->drawStart = 0;         // Position de départ de la colonne à dessiner
+    ray->drawEnd = 0;           // Position de fin de la colonne à dessiner
 }

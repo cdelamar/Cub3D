@@ -2,9 +2,10 @@
 
 int	player_controls(int keysym, t_game *game, t_player *player)
 {
+	printf("player-> %f\n", player->dirX);
 	if (keysym == KEY_ESCAPE)
 	{
-		close_mlx(game, player);
+		close_mlx(game);
 		// free_img_map(img);
 		// on_destroy(img);
 	}

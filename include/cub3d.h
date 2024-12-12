@@ -109,6 +109,7 @@ typedef struct s_game
 {
 	t_textures	textures;
 	t_player	player;
+	t_ray		ray;
 	char	*file_name;
 
 	int		fd;
@@ -184,13 +185,14 @@ int		parse_texture(char *line, t_game *game);
 // --- GAME ---
 
 // ---> gameplay.c
-int		close_mlx (t_game *game, t_player *player);
 int		player_controls(int keysym, t_game *game, t_player *player);
 
 // ---> hook.c
-int		close_mlx (t_game *game, t_player *player);
+int render_frame(void *param);
+
+int		close_mlx (t_game *game);
 int		quit_game(t_game *game, t_player *player);
-void	ft_mlx(t_game *game, t_player *player, t_ray *ray);
+void	ft_mlx(t_game *game);
 
 // ---> raycasting.c
 

@@ -14,22 +14,20 @@ void draw_vertical_line(t_game *game, t_ray *ray,int x, int color)
 
 void raycast(t_game *game, t_player *player, t_ray *ray)
 {
-	(void)game;
 	int	x;
-
 	x = 0;
 	while(x < SCREEN_WIDTH)
 	{
 		ray->camX = 2 * x / (double)SCREEN_WIDTH - 1;
 		ray->rayX = player->dirX + ray->planeX * ray->camX;
 		ray->rayY = player->dirY + ray->planeY * ray->camX;
-		printf("Ray %d: DirX = %f, DirY = %f\n", x, ray->rayX, ray->rayY);
+		//printf("Ray %d: DirX = %f, DirY = %f\n", x, ray->rayX, ray->rayY);
 
 		// postition de depart du rayon dans la map
 		game->mapX = (int)player->posX;
 		game->mapY = (int)player->posY;
 
-		if (ray->rayX == 0)
+		if (ray->rayX == 0) // annonce un conditionnal jump ici
 			ray->deltaDistX = 1e30; // Valeur infinie pour éviter la division par zéro
 		else
 			ray->deltaDistX = fabs(1 / ray->rayX);
@@ -74,6 +72,7 @@ void raycast(t_game *game, t_player *player, t_ray *ray)
 			// Avancer vers la prochaine case de la grille (map)
 			if (ray->sideDistX < ray->sideDistY)
 			{
+				printf("if...\n");
 				ray->sideDistX += ray->deltaDistX;
 				game->mapX += ray->stepX;
 				ray->side = 0; // Mur NS touché
@@ -89,7 +88,6 @@ void raycast(t_game *game, t_player *player, t_ray *ray)
 			if (game->map[game->mapY][game->mapX] > 0)
 				ray->hit = 1;
 		}
-
 		// Calcul de 'perpWallDist' (distance au mur) + dessiner la colonne
 		if (ray->side == 0)
 			ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);

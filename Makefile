@@ -16,7 +16,7 @@ LIBFT = lib/libft.a
 LIBMLXLINUX = lib/libmlx_Linux.a
 
 CC = cc
-CFLAGS =	-g -Wall -Wextra -Werror -Iinclude
+CFLAGS =	-g -Wall -Wextra -Iinclude -Werror
 LFLAGS =	-Llib -lft -lmlx_Linux -lX11 -lXext
 
 GAM_DIR = src/game/
