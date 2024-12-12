@@ -27,6 +27,12 @@
 # include "mlx.h"
 # include "libft.h"
 
+# define RGB_RED	0xFF0000
+# define RGB_GREEN	0x008000
+# define RGB_BLUE	0x0000FF
+# define RGB_WHITE	0xFFFFFF
+# define RGB_BLACK	0x000000
+
 # define WRONG_COLOR_VALUE		"Error\nColor values must be between 0 and 255"
 # define MISSING_TEXTURE        "Error\nMissing one or more textures"
 # define INVALID_MAP_CHARACTER 	"Error\nInvalid map character"
@@ -84,6 +90,9 @@ typedef struct s_ray
 
 	double planeX;			// camera plane
 	double planeY;
+
+	int drawStart;
+	int drawEnd;
 } t_ray;
 
 typedef struct s_player
@@ -185,6 +194,7 @@ void	ft_mlx(t_game *game, t_player *player, t_ray *ray);
 
 // ---> raycasting.c
 
-void raycast(t_game *game, t_player *player, t_ray *ray);
+void	draw_vertical_line(t_game *game, t_ray *ray,int x, int color);
+void	raycast(t_game *game, t_player *player, t_ray *ray);
 
 #endif

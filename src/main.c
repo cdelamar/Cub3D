@@ -4,6 +4,8 @@ int main (int argc, char **argv)
 {
 	t_game		*game;
 	t_player 	*player;
+
+	// possibilite d'initialiser t_ray plus tard
 	t_ray		*ray;
 	game = malloc(sizeof(t_game));
 	player = malloc(sizeof(t_player));
@@ -28,8 +30,21 @@ int main (int argc, char **argv)
 		return(EXIT_FAILURE);
 	}
 
+
 	else
 	{
+		printf("north : %s\n", game->textures.north);
+		printf("south : %s\n", game->textures.south);
+		printf("east : %s\n", game->textures.east);
+		printf("west : %s\n", game->textures.west);
+		printf("floor : ");
+		print_int_array(game->floor_color, 3);
+		printf("ceiling : ");
+		print_int_array(game->ceiling_color, 3);
+		printf("map :\n\n");
+		print_char_array(game->map);
+
+
 		game->mlx = mlx_init();
 		game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
 		ft_mlx(game, player, ray);
@@ -40,14 +55,3 @@ int main (int argc, char **argv)
 	free(player);
 	return (EXIT_SUCCESS);
 }
-
-	// printf("north : %s\n", game->textures.north);
-	// printf("south : %s\n", game->textures.south);
-	// printf("east : %s\n", game->textures.east);
-	// printf("west : %s\n", game->textures.west);
-	// printf("floor : ");
-	// print_int_array(game->floor_color, 3);
-	// printf("ceiling : ");
-	// print_int_array(game->ceiling_color, 3);
-	// printf("map :\n\n");
-	// print_char_array(game->map);
