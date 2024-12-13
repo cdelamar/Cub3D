@@ -3,30 +3,20 @@
 int main (int argc, char **argv)
 {
 	t_game		*game;
-	t_player 	*player;
 
-	// possibilite d'initialiser t_ray plus tard
-	t_ray		*ray;
 	game = malloc(sizeof(t_game));
-	player = malloc(sizeof(t_player));
-	ray = malloc(sizeof(t_ray));
-	if (!game || !player || !ray)
+	if (!game)
 	{
 		ft_putendl_fd("Error\nMemory allocation failed", 2);
 		return (EXIT_FAILURE);
 	}
 
 	init_game(game);
-	init_player(player);
-	init_ray(ray);
-
-	printf("ray test ->%f\n", ray->camX);
 
 	if(parsing(argc, argv, game) == false)
 	{
 		free_game(game);
 		free(game);
-		free(player);
 		return(EXIT_FAILURE);
 	}
 
@@ -40,7 +30,6 @@ int main (int argc, char **argv)
 
 	free_game(game);
 	free(game);
-	free(player);
 	return (EXIT_SUCCESS);
 }
 

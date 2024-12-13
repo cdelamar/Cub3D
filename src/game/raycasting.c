@@ -1,118 +1,147 @@
 #include "cub3d.h"
 
-void draw_vertical_line(t_game *game, t_ray *ray,int x, int color)
+/*
+** draw_pixel: Engraves a single pixel of a chosen color upon the canvas.
+*/
+void	draw_pixel(void *data_addr, int x, int y, int color)
 {
-    int y = ray->drawStart;
+	char	*pixel;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	char	*data;
 
-    while (y <= ray->drawEnd)
-    {
-        mlx_pixel_put(game->mlx, game->win, x, y, color);
-        y++;
-    }
+	data = mlx_get_data_addr(data_addr, &bpp, &size_line, &endian);
+	pixel = data + (y * size_line + x * (bpp / 8));
+	*(int *)pixel = color;
 }
 
-
-void raycast(t_game *game, t_player *player, t_ray *ray)
+static void	draw_line(void *img, int x, int start, int end, int color)
 {
-	int	x;
-	x = 0;
-	while(x < SCREEN_WIDTH)
+	int	y;
+
+	y = start;
+	while (y < end)
 	{
-		ray->camX = 2 * x / (double)SCREEN_WIDTH - 1;
-		ray->rayX = player->dirX + ray->planeX * ray->camX;
-		ray->rayY = player->dirY + ray->planeY * ray->camX;
-		//printf("Ray %d: DirX = %f, DirY = %f\n", x, ray->rayX, ray->rayY);
-
-		// postition de depart du rayon dans la map
-		game->mapX = (int)player->posX;
-		game->mapY = (int)player->posY;
-
-		if (ray->rayX == 0) // annonce un conditionnal jump ici
-			ray->deltaDistX = 1e30; // Valeur infinie pour éviter la division par zéro
-		else
-			ray->deltaDistX = fabs(1 / ray->rayX);
-
-		if (ray->rayY == 0)
-			ray->deltaDistY = 1e30; // Valeur infinie pour éviter la division par zéro
-		else
-			ray->deltaDistY = fabs(1 / ray->rayY);
-
-		// calcul des distances initiales pour sideDixstX/Y
-
-		if (ray->rayX < 0)
-		{
-            ray->stepX = -1;
-            ray->sideDistX = (player->posX - game->mapX) * ray->deltaDistX;
-        }
-
-		else
-		{
-            ray->stepX = 1;
-            ray->sideDistX = (game->mapX + 1.0 - player->posX) * ray->deltaDistX;
-        }
-
-        if (ray->rayY < 0)
-		{
-            ray->stepY = -1;
-            ray->sideDistY = (player->posY - game->mapY) * ray->deltaDistY;
-        }
-
-		else
-		{
-            ray->stepY = 1;
-            ray->sideDistY = (game->mapY + 1.0 - player->posY) * ray->deltaDistY;
-        }
-
-		// le while (hit) :
-		// complete la logique  Digital Differential Analysis (DDA)
-
-		ray->hit = 0;
-		while (ray->hit == 0)
-		{
-			// Avancer vers la prochaine case de la grille (map)
-			if (ray->sideDistX < ray->sideDistY)
-			{
-				printf("if...\n");
-				ray->sideDistX += ray->deltaDistX;
-				game->mapX += ray->stepX;
-				ray->side = 0; // Mur NS touché
-			}
-			else
-			{
-				ray->sideDistY += ray->deltaDistY;
-				game->mapY += ray->stepY;
-				ray->side = 1; // Mur EW touché
-			}
-
-			// Vérifier si le rayon frappe un mur
-			if (game->map[game->mapY][game->mapX] > 0)
-				ray->hit = 1;
-		}
-		// Calcul de 'perpWallDist' (distance au mur) + dessiner la colonne
-		if (ray->side == 0)
-			ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
-		else
-			ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
-
-		// calcul de la hauteur de la colonne
-		int lineHeight = (int)(SCREEN_HEIGHT / ray->perpWallDist);
-
-		// definir les pixels a dessiner pour la colonne
-
-		ray->drawStart = -lineHeight / 2 + SCREEN_HEIGHT / 2;
-		if (ray->drawStart < 0)
-			ray->drawStart = 0;
-
-		ray->drawEnd = lineHeight / 2 + SCREEN_HEIGHT / 2;
-		if (ray->drawEnd >= SCREEN_HEIGHT)
-			ray->drawEnd = SCREEN_HEIGHT - 1;
-
-		//dessiner la colonne
-		// color blanc ou gris (temporaire, a refaire pour les texutres)
-		int color = (ray->side == 0) ? RGB_RED : RGB_BLUE;
-        draw_vertical_line(game, ray, x, color);
-
-		// suite du raycasting
-        x++;
+		draw_pixel(img, x, y, color);
+		y++;
 	}
+}
+
+static void	calc_step(t_game *game, t_ray *ray, int *mapX, int *mapY)
+{
+	*mapX = (int)game->player.posX;
+	*mapY = (int)game->player.posY;
+	if (ray->rayX < 0)
+	{
+		ray->stepX = -1;
+		ray->sideDistX = (game->player.posX - *mapX) * ray->deltaDistX;
+	}
+	else
+	{
+		ray->stepX = 1;
+		ray->sideDistX = (*mapX + 1.0 - game->player.posX) * ray->deltaDistX;
+	}
+	if (ray->rayY < 0)
+	{
+		ray->stepY = -1;
+		ray->sideDistY = (game->player.posY - *mapY) * ray->deltaDistY;
+	}
+	else
+	{
+		ray->stepY = 1;
+		ray->sideDistY = (*mapY + 1.0 - game->player.posY) * ray->deltaDistY;
+	}
+}
+
+static void	dda(t_game *game, t_ray *ray, int *mapX, int *mapY)
+{
+	ray->hit = 0;
+	while (ray->hit == 0)
+	{
+		if (ray->sideDistX < ray->sideDistY)
+		{
+			ray->sideDistX += ray->deltaDistX;
+			*mapX += ray->stepX;
+			ray->side = 0;
+		}
+		else
+		{
+			ray->sideDistY += ray->deltaDistY;
+			*mapY += ray->stepY;
+			ray->side = 1;
+		}
+		if (game->map[*mapX] && game->map[*mapX][*mapY] && game->map[*mapX][*mapY] != '0')
+			ray->hit = 1;
+	}
+}
+
+static int	calc_wall_dist(t_game *game, t_ray *ray, int mapX, int mapY)
+{
+	double	perpWallDist;
+	int		lineHeight;
+
+	if (ray->side == 0)
+		perpWallDist = (mapX - game->player.posX + (1 - ray->stepX) / 2) / ray->rayX;
+	else
+		perpWallDist = (mapY - game->player.posY + (1 - ray->stepY) / 2) / ray->rayY;
+	lineHeight = (int)(WIN_HEIGHT / perpWallDist);
+	return (lineHeight);
+}
+
+/*
+** cast_ray: A single ray is cast
+**  - Calculate direction
+**  - Run DDA
+**  - Compute wall height
+**  - Draw the line
+*/
+static void	cast_ray(t_game *game, void *img, int x)
+{
+	int		mapX;
+	int		mapY;
+	int		lineHeight;
+	int		drawStart;
+	int		drawEnd;
+	int		color;
+
+	game->ray.camX = 2 * x / (double)WIN_WIDTH - 1;
+	game->ray.rayX = game->player.dirX + game->ray.planeX * game->ray.camX;
+	game->ray.rayY = game->player.dirY + game->ray.planeY * game->ray.camX;
+	game->ray.deltaDistX = fabs(1 / game->ray.rayX);
+	game->ray.deltaDistY = fabs(1 / game->ray.rayY);
+	calc_step(game, &game->ray, &mapX, &mapY);
+	dda(game, &game->ray, &mapX, &mapY);
+	lineHeight = calc_wall_dist(game, &game->ray, mapX, mapY);
+	drawStart = -lineHeight / 2 + WIN_HEIGHT / 2;
+	if (drawStart < 0)
+		drawStart = 0;
+	drawEnd = lineHeight / 2 + WIN_HEIGHT / 2;
+	if (drawEnd >= WIN_HEIGHT)
+		drawEnd = WIN_HEIGHT - 1;
+	color = (game->ray.side == 0) ? 0xFF0000 : 0x800000;
+	draw_line(img, x, drawStart, drawEnd, color);
+}
+
+static void	forge_frame(t_game *game)
+{
+	void	*img;
+	int		x;
+
+	img = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
+	x = 0;
+	while (x < WIN_WIDTH)
+	{
+		cast_ray(game, img, x);
+		x++;
+	}
+	mlx_put_image_to_window(game->mlx, game->win, img, 0, 0);
+	mlx_destroy_image(game->mlx, img);
+}
+
+void	raycast(t_game *game, t_player *player, t_ray *ray)
+{
+	(void)player;
+	(void)ray;
+	forge_frame(game);
 }

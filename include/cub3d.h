@@ -46,9 +46,11 @@
 # define MAP_IS_EMPTY    		"Error\nMap is empty"
 # define FD_ERROR        		"Error\nCannot open the file"
 
-# define SCREEN_WIDTH			640
-# define SCREEN_HEIGHT			480
+# define SCREEN_WIDTH			1600
+# define SCREEN_HEIGHT			1200
 
+#define	WIN_WIDTH 1600
+#define WIN_HEIGHT 1200
 
 # define ARROW_UP  				65362
 # define ARROW_DOWN  			65364
@@ -191,12 +193,18 @@ int		player_controls(int keysym, t_game *game, t_player *player);
 int render_frame(void *param);
 
 int		close_mlx (t_game *game);
-int		quit_game(t_game *game, t_player *player);
+int		quit_game(t_game *game);
 void	ft_mlx(t_game *game);
 
 // ---> raycasting.c
 
 void	draw_vertical_line(t_game *game, t_ray *ray,int x, int color);
 void	raycast(t_game *game, t_player *player, t_ray *ray);
+
+
+int		render_frame(void *param);
+void	raycast(t_game *game, t_player *player, t_ray *ray);
+void	draw_pixel(void *data_addr, int x, int y, int color);
+
 
 #endif

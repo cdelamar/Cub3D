@@ -2,10 +2,11 @@
 
 int render_frame(void *param)
 {
-	t_game *game = (t_game *)param;
-	raycast(game, &game->player, &game->ray);  // Calculer les colonnes et les dessiner
+	t_game *game;
 
-    return (0);  // Retourne 0 pour satisfaire la signature de mlx_loop_hook
+	game = (t_game *)param;
+	raycast(game, &game->player, &game->ray);
+	return (0);
 }
 
 
@@ -23,10 +24,8 @@ int	close_mlx (t_game *game)
 	exit(0);
 }
 
-int quit_game(t_game *game, t_player *player)
+int quit_game(t_game *game)
 {
-
-	printf("test %f", player->dirX);
 	close_mlx(game);
 	return (EXIT_SUCCESS); // on y passe jamais
 }
