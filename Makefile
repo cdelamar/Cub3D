@@ -28,6 +28,7 @@ FILES =	main args file init\
 		texture color map\
 		str gnl utils free\
 		gameplay hook raycasting\
+		maths
 
 GAME = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))
 PARS = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))

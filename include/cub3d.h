@@ -198,13 +198,15 @@ void	ft_mlx(t_game *game);
 
 // ---> raycasting.c
 
-void	draw_vertical_line(t_game *game, t_ray *ray,int x, int color);
-void	raycast(t_game *game, t_player *player, t_ray *ray);
+void	cast_ray(t_game *game, void *img, int x);
+void		raycaster(t_game *game);
 
+// ---> maths.c
 
-int		render_frame(void *param);
-void	raycast(t_game *game, t_player *player, t_ray *ray);
 void	draw_pixel(void *data_addr, int x, int y, int color);
-
+void	draw_line(void *img, int x, int start, int end, int color);
+void	calc_step(t_game *game, t_ray *ray, int *mapX, int *mapY);
+void	dda(t_game *game, t_ray *ray, int *mapX, int *mapY);
+int		calc_wall_dist(t_game *game, t_ray *ray, int mapX, int mapY);
 
 #endif

@@ -5,22 +5,19 @@ int render_frame(void *param)
 	t_game *game;
 
 	game = (t_game *)param;
-	raycast(game, &game->player, &game->ray);
+	raycaster(game);
 	return (0);
 }
 
 
 int	close_mlx (t_game *game)
 {
-	//(void)player;
 	mlx_clear_window(game->mlx, game->win);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
 	free_game(game);
 	free(game);
-	//printf("on sort\n");
-	//free(player); pourquoi il en veut pas ?
 	exit(0);
 }
 

@@ -33,13 +33,13 @@ int main (int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
-		// printf("north : %s\n", game->textures.north);
-		// printf("south : %s\n", game->textures.south);
-		// printf("east : %s\n", game->textures.east);
-		// printf("west : %s\n", game->textures.west);
-		// printf("floor : ");
-		// print_int_array(game->floor_color, 3);
-		// printf("ceiling : ");
-		// print_int_array(game->ceiling_color, 3);
-		// printf("map :\n\n");
-		// print_char_array(game->map);
+	// printf("north : %s\n", game->textures.north);
+	// printf("south : %s\n", game->textures.south);
+	// printf("east : %s\n", game->textures.east);
+	// printf("west : %s\n", game->textures.west);
+	// printf("floor : ");
+	// print_int_array(game->floor_color, 3);
+	// printf("ceiling : ");
+	// print_int_array(game->ceiling_color, 3);
+	// printf("map :\n\n");
+	// print_char_array(game->map);
