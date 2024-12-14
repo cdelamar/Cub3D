@@ -17,7 +17,7 @@ LIBMLXLINUX = lib/libmlx_Linux.a
 
 CC = cc
 CFLAGS =	-g -Wall -Wextra -Iinclude -Werror
-LFLAGS =	-Llib -lft -lmlx_Linux -lX11 -lXext
+LFLAGS =	-lm -Llib -lft -lmlx_Linux -lX11 -lXext
 
 GAM_DIR = src/game/
 PAR_DIR = src/parsing/
@@ -28,7 +28,7 @@ FILES =	main args file init\
 		texture color map\
 		str gnl utils free\
 		gameplay hook raycasting\
-		maths
+		maths player_control
 
 GAME = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))
 PARS = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))

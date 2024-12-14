@@ -29,10 +29,18 @@ int quit_game(t_game *game)
 
 void ft_mlx(t_game *game)
 {
+	mlx_loop_hook(game->mlx, &render_frame, game);
+	mlx_hook(game->win, KeyPress, KeyPressMask, &player_controls, game);
+	mlx_hook(game->win, DestroyNotify, StructureNotifyMask, &close_mlx, game);
+	mlx_loop(game->mlx);
+}
+
+/*void ft_mlx(t_game *game)
+{
     mlx_loop_hook(game->mlx, &render_frame, game);
     mlx_hook(game->win, KeyPress, KeyPressMask, &player_controls, game);
     mlx_hook(game->win, DestroyNotify, StructureNotifyMask, &close_mlx, game);
     mlx_hook(game->win, 17, StructureNotifyMask, &quit_game, game);
     mlx_loop(game->mlx);
-}
+}*/
 

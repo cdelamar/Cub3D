@@ -187,7 +187,7 @@ int		parse_texture(char *line, t_game *game);
 // --- GAME ---
 
 // ---> gameplay.c
-int		player_controls(int keysym, t_game *game, t_player *player);
+// int		player_controls(int keysym, t_game *game, t_player *player);
 
 // ---> hook.c
 int render_frame(void *param);
@@ -208,5 +208,12 @@ void	draw_line(void *img, int x, int start, int end, int color);
 void	calc_step(t_game *game, t_ray *ray, int *mapX, int *mapY);
 void	dda(t_game *game, t_ray *ray, int *mapX, int *mapY);
 int		calc_wall_dist(t_game *game, t_ray *ray, int mapX, int mapY);
+
+// ---> player_control.c
+
+void	move_player(t_game *game, double move_speed);
+void	strafe_player(t_game *game, double move_speed);
+void	rotate_player(t_game *game, double rot_speed);
+int		player_controls(int keycode, t_game *game);
 
 #endif

@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int	player_controls(int keysym, t_game *game, t_player *player)
+/*int	player_controls(int keysym, t_game *game, t_player *player)
 {
 	printf("player-> %f\n", player->dirX);
 	if (keysym == KEY_ESCAPE)
@@ -18,4 +18,4 @@ int	player_controls(int keysym, t_game *game, t_player *player)
 	// if (keysym == ARROW_RIGHT)
 	// 	player_move(img, img->player_y, img->player_x + 1);
 	return (0);
-}
+}*/
