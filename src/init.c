@@ -33,19 +33,29 @@ void init_ray(t_ray *ray)
 
 void init_game(t_game *game)
 {
-	game->textures.north = NULL;
-	game->textures.south = NULL;
-	game->textures.west = NULL;
-	game->textures.east = NULL;
-	game->floor_color[0] = -1;
-	game->floor_color[1] = -1;
-	game->floor_color[2] = -1;
-	game->ceiling_color[0] = -1;
-	game->ceiling_color[1] = -1;
-	game->ceiling_color[2] = -1;
-	game->map = NULL;
-	game->map_buffer = NULL;
-	game->mlx = NULL;
-	init_player(&game->player);
-	init_ray(&game->ray);
+    game->textures.north = NULL;
+    game->textures.south = NULL;
+    game->textures.west = NULL;
+    game->textures.east = NULL;
+
+    game->textures.north_img = NULL;
+    game->textures.south_img = NULL;
+    game->textures.west_img = NULL;
+    game->textures.east_img = NULL;
+
+    game->textures.tex_width = 0;
+    game->textures.tex_height = 0;
+
+    game->floor_color[0] = -1;
+    game->floor_color[1] = -1;
+    game->floor_color[2] = -1;
+    game->ceiling_color[0] = -1;
+    game->ceiling_color[1] = -1;
+    game->ceiling_color[2] = -1;
+
+    game->map = NULL;
+    game->map_buffer = NULL;
+    game->mlx = NULL;
+    init_player(&game->player);
+    init_ray(&game->ray);
 }

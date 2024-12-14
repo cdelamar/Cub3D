@@ -67,11 +67,20 @@
 
 typedef struct s_textures
 {
-	char *north;
-	char *south;
-	char *west;
-	char *east;
-}	t_textures;
+    char    *north;     // Path to north texture
+    char    *south;     // Path to south texture
+    char    *west;      // Path to west texture
+    char    *east;      // Path to east texture
+
+    void    *north_img; // MiniLibX image for north texture
+    void    *south_img; // MiniLibX image for south texture
+    void    *west_img;  // MiniLibX image for west texture
+    void    *east_img;  // MiniLibX image for east texture
+
+    int     tex_width;  // Texture width (all textures are assumed to have the same size)
+    int     tex_height; // Texture height
+}   t_textures;
+
 
 typedef struct s_ray
 {
@@ -130,6 +139,8 @@ typedef struct s_game
 } t_game;
 
 // ---> free.c
+
+void free_textures(t_textures *textures, void *mlx);
 void	ft_freetab (char **tab);
 void	*ft_realloc(void *ptr, size_t new_size);
 void	free_game(t_game *game);
@@ -180,9 +191,11 @@ int		parse_map(t_game *game);
 int		check_map(t_game *game);
 
 // ---> texture.c
+int check_texture_files(t_textures *textures);
 int     check_texture(t_game *game);
 int     path_texture(char *line, char **texture);
 int		parse_texture(char *line, t_game *game);
+void	load_textures(t_game *game);
 
 // --- GAME ---
 
@@ -190,8 +203,8 @@ int		parse_texture(char *line, t_game *game);
 // int		player_controls(int keysym, t_game *game, t_player *player);
 
 // ---> hook.c
-int render_frame(void *param);
 
+int render_frame(void *param);
 int		close_mlx (t_game *game);
 int		quit_game(t_game *game);
 void	ft_mlx(t_game *game);

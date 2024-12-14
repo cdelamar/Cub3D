@@ -1,5 +1,17 @@
 #include "cub3d.h"
 
+void free_textures(t_textures *textures, void *mlx)
+{
+    if (textures->north_img)
+        mlx_destroy_image(mlx, textures->north_img);
+    if (textures->south_img)
+        mlx_destroy_image(mlx, textures->south_img);
+    if (textures->west_img)
+        mlx_destroy_image(mlx, textures->west_img);
+    if (textures->east_img)
+        mlx_destroy_image(mlx, textures->east_img);
+}
+
 void ft_freetab (char **tab)
 {
     int i;
@@ -39,14 +51,15 @@ void *ft_realloc(void *ptr, size_t new_size)
 
 void free_game(t_game *game)
 {
-    if (game->textures.north)
+    free_textures(&game->textures, game->mlx);
+    /*if (game->textures.north)
 		free(game->textures.north);
     if (game->textures.south)
 		free(game->textures.south);
     if (game->textures.west)
 		free(game->textures.west);
     if (game->textures.east)
-		free(game->textures.east);
+		free(game->textures.east);*/
     ft_freetab(game->map);
     // ft_freetab(game->map_buffer);
     // ajouter plus tard
