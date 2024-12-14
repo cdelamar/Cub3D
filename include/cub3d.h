@@ -46,11 +46,11 @@
 # define MAP_IS_EMPTY    		"Error\nMap is empty"
 # define FD_ERROR        		"Error\nCannot open the file"
 
-# define SCREEN_WIDTH			1600
-# define SCREEN_HEIGHT			1200
+# define SCREEN_WIDTH			1640
+# define SCREEN_HEIGHT			800
 
-#define	WIN_WIDTH 1600
-#define WIN_HEIGHT 1200
+#define	WIN_WIDTH 1640
+#define WIN_HEIGHT 800
 
 # define ARROW_UP  				65362
 # define ARROW_DOWN  			65364
@@ -140,7 +140,7 @@ typedef struct s_game
 
 // ---> free.c
 
-void free_textures(t_textures *textures, void *mlx);
+void	free_textures(t_game *game);
 void	ft_freetab (char **tab);
 void	*ft_realloc(void *ptr, size_t new_size);
 void	free_game(t_game *game);

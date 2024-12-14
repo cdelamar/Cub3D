@@ -15,8 +15,10 @@ int	close_mlx (t_game *game)
 	mlx_clear_window(game->mlx, game->win);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
+	free_textures(game);
+	ft_freetab(game->map);
+	// free_game(game);
 	free(game->mlx);
-	free_game(game);
 	free(game);
 	exit(0);
 }

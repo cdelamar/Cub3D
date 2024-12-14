@@ -1,16 +1,29 @@
 #include "cub3d.h"
 
-void free_textures(t_textures *textures, void *mlx)
+void free_textures(t_game *game)
 {
-    if (textures->north_img)
-        mlx_destroy_image(mlx, textures->north_img);
-    if (textures->south_img)
-        mlx_destroy_image(mlx, textures->south_img);
-    if (textures->west_img)
-        mlx_destroy_image(mlx, textures->west_img);
-    if (textures->east_img)
-        mlx_destroy_image(mlx, textures->east_img);
+    if (game->textures.north_img)
+    {
+        mlx_destroy_image(game->mlx, game->textures.north_img);
+        game->textures.north_img = NULL;
+    }
+    if (game->textures.south_img)
+    {
+        mlx_destroy_image(game->mlx, game->textures.south_img);
+        game->textures.south_img = NULL;
+    }
+    if (game->textures.west_img)
+    {
+        mlx_destroy_image(game->mlx, game->textures.west_img);
+        game->textures.west_img = NULL;
+    }
+    if (game->textures.east_img)
+    {
+        mlx_destroy_image(game->mlx, game->textures.east_img);
+        game->textures.east_img = NULL;
+    }
 }
+
 
 void ft_freetab (char **tab)
 {
@@ -51,7 +64,7 @@ void *ft_realloc(void *ptr, size_t new_size)
 
 void free_game(t_game *game)
 {
-    free_textures(&game->textures, game->mlx);
+    free_textures(game);
     /*if (game->textures.north)
 		free(game->textures.north);
     if (game->textures.south)

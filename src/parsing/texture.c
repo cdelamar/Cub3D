@@ -27,7 +27,7 @@ int check_texture_files(t_textures *textures)
 
 int check_texture(t_game *game)
 {
-	if (!game->textures.north || !game->textures.south || 
+	if (!game->textures.north || !game->textures.south ||
 		!game->textures.east || !game->textures.west)
 	{
 		ft_putendl_fd("Error\nMissing one or more texture paths.", 2);
@@ -37,32 +37,6 @@ int check_texture(t_game *game)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
-
-
-/*int check_texture(t_game *game)
-{
-	if (!game->textures.north)
-	{
-		ft_putendl_fd("Error\nMissing north texture (NO).", 2);
-		return (EXIT_FAILURE);
-	}
-	if (!game->textures.south)
-	{
-		ft_putendl_fd("Error\nMissing south texture (SO).", 2);
-		return (EXIT_FAILURE);
-	}
-	if (!game->textures.east)
-	{
-		ft_putendl_fd("Error\nMissing east texture (EA).", 2);
-		return (EXIT_FAILURE);
-	}
-	if (!game->textures.west)
-	{
-		ft_putendl_fd("Error\nMissing west texture (WE).", 2);
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}*/
 
 int path_texture(char *line, char **texture)
 {
@@ -98,23 +72,32 @@ int parse_texture(char *line, t_game *game)
 
 void load_textures(t_game *game)
 {
-    game->textures.north_img = mlx_xpm_file_to_image(game->mlx,
-                                game->textures.north, &game->textures.tex_width, &game->textures.tex_height);
+    game->textures.north_img = mlx_xpm_file_to_image(game->mlx, game->textures.north,
+                                                     &game->textures.tex_width, &game->textures.tex_height);
     if (!game->textures.north_img)
         ft_putendl_fd("Error\nFailed to load north texture.", 2);
 
-    game->textures.south_img = mlx_xpm_file_to_image(game->mlx,
-                                game->textures.south, &game->textures.tex_width, &game->textures.tex_height);
+    game->textures.south_img = mlx_xpm_file_to_image(game->mlx, game->textures.south,
+                                                     &game->textures.tex_width, &game->textures.tex_height);
     if (!game->textures.south_img)
         ft_putendl_fd("Error\nFailed to load south texture.", 2);
 
-    game->textures.west_img = mlx_xpm_file_to_image(game->mlx,
-                                game->textures.west, &game->textures.tex_width, &game->textures.tex_height);
+    game->textures.west_img = mlx_xpm_file_to_image(game->mlx, game->textures.west,
+                                                    &game->textures.tex_width, &game->textures.tex_height);
     if (!game->textures.west_img)
         ft_putendl_fd("Error\nFailed to load west texture.", 2);
 
-    game->textures.east_img = mlx_xpm_file_to_image(game->mlx,
-                                game->textures.east, &game->textures.tex_width, &game->textures.tex_height);
+    game->textures.east_img = mlx_xpm_file_to_image(game->mlx, game->textures.east,
+                                                    &game->textures.tex_width, &game->textures.tex_height);
     if (!game->textures.east_img)
         ft_putendl_fd("Error\nFailed to load east texture.", 2);
+
+    // Vérification des dimensions
+    if (game->textures.tex_width <= 0 || game->textures.tex_height <= 0)
+    {
+        ft_putendl_fd("Error\nInvalid texture dimensions.", 2);
+        exit(EXIT_FAILURE);
+    }
 }
+
+
