@@ -3,8 +3,8 @@ SO ./ressources/south.xpm
 WE ./ressources/west.xpm
 EA ./ressources/east.xpm
 
-C 225,69,100
-F 220,90,60
+C 10,90,250
+F 34,139,35
 
   111111111111111111111111
   100000000000000000000001

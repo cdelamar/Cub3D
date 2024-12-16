@@ -211,6 +211,7 @@ void	ft_mlx(t_game *game);
 
 // ---> raycasting.c
 
+void draw_floor_and_ceiling(t_game *game, void *img);
 void	cast_ray(t_game *game, void *img, int x);
 void		raycaster(t_game *game);
 
