@@ -5,22 +5,22 @@ void free_textures(t_game *game)
     if (game->textures.north_img)
     {
         mlx_destroy_image(game->mlx, game->textures.north_img);
-        game->textures.north_img = NULL;
+       //game->textures.north_img = NULL;
     }
     if (game->textures.south_img)
     {
         mlx_destroy_image(game->mlx, game->textures.south_img);
-        game->textures.south_img = NULL;
+        //game->textures.south_img = NULL;
     }
     if (game->textures.west_img)
     {
         mlx_destroy_image(game->mlx, game->textures.west_img);
-        game->textures.west_img = NULL;
+    //    game->textures.west_img = NULL;
     }
     if (game->textures.east_img)
     {
         mlx_destroy_image(game->mlx, game->textures.east_img);
-        game->textures.east_img = NULL;
+      //  game->textures.east_img = NULL;
     }
 }
 

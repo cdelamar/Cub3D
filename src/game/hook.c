@@ -1,5 +1,29 @@
 #include "cub3d.h"
 
+void free_texture_paths(t_game *game)
+{
+    if (game->textures.north)
+    {
+        free(game->textures.north);
+        game->textures.north = NULL;
+    }
+    if (game->textures.south)
+    {
+        free(game->textures.south);
+        game->textures.south = NULL;
+    }
+    if (game->textures.west)
+    {
+        free(game->textures.west);
+        game->textures.west = NULL;
+    }
+    if (game->textures.east)
+    {
+        free(game->textures.east);
+        game->textures.east = NULL;
+    }
+}
+
 int render_frame(void *param)
 {
 	t_game *game;
@@ -12,12 +36,13 @@ int render_frame(void *param)
 
 int	close_mlx (t_game *game)
 {
+	printf("ca libere\n\n");
+	free_textures(game);
 	mlx_clear_window(game->mlx, game->win);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
-	free_textures(game);
 	ft_freetab(game->map);
-	// free_game(game);
+	free_texture_paths(game);
 	free(game->mlx);
 	free(game);
 	exit(0);

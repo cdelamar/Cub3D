@@ -51,6 +51,7 @@ int main(int argc, char **argv)
         free(game);
         return (EXIT_FAILURE);
     }
+    print_char_array(game->map);
 
     // Lancer la boucle principale
     ft_mlx(game);
