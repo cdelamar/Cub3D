@@ -2,26 +2,26 @@
 
 void free_texture_paths(t_game *game)
 {
-    if (game->textures.north)
-    {
-        free(game->textures.north);
-        game->textures.north = NULL;
-    }
-    if (game->textures.south)
-    {
-        free(game->textures.south);
-        game->textures.south = NULL;
-    }
-    if (game->textures.west)
-    {
-        free(game->textures.west);
-        game->textures.west = NULL;
-    }
-    if (game->textures.east)
-    {
-        free(game->textures.east);
-        game->textures.east = NULL;
-    }
+	if (game->textures.north)
+	{
+		free(game->textures.north);
+		game->textures.north = NULL;
+	}
+	if (game->textures.south)
+	{
+		free(game->textures.south);
+		game->textures.south = NULL;
+	}
+	if (game->textures.west)
+	{
+		free(game->textures.west);
+		game->textures.west = NULL;
+	}
+	if (game->textures.east)
+	{
+		free(game->textures.east);
+		game->textures.east = NULL;
+	}
 }
 
 int render_frame(void *param)
@@ -64,10 +64,10 @@ void ft_mlx(t_game *game)
 
 /*void ft_mlx(t_game *game)
 {
-    mlx_loop_hook(game->mlx, &render_frame, game);
-    mlx_hook(game->win, KeyPress, KeyPressMask, &player_controls, game);
-    mlx_hook(game->win, DestroyNotify, StructureNotifyMask, &close_mlx, game);
-    mlx_hook(game->win, 17, StructureNotifyMask, &quit_game, game);
-    mlx_loop(game->mlx);
+	mlx_loop_hook(game->mlx, &render_frame, game);
+	mlx_hook(game->win, KeyPress, KeyPressMask, &player_controls, game);
+	mlx_hook(game->win, DestroyNotify, StructureNotifyMask, &close_mlx, game);
+	mlx_hook(game->win, 17, StructureNotifyMask, &quit_game, game);
+	mlx_loop(game->mlx);
 }*/
 

@@ -3,8 +3,8 @@
 
 void init_player(t_player *player)
 {
-	player->posX = 22;
-	player->posY = 12;
+	player->posX = -1;
+	player->posY = -1;
 	player->dirX = -1;
 	player->dirY = 0;
 	player->time = 0;

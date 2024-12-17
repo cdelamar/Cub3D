@@ -54,6 +54,7 @@ int main(int argc, char **argv)
     print_char_array(game->map);
 
     // Lancer la boucle principale
+    find_player_spawn(game, game->map);
     ft_mlx(game);
 
     free_game(game);

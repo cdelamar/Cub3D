@@ -199,7 +199,10 @@ void	load_textures(t_game *game);
 
 // --- GAME ---
 
-// ---> gameplay.c
+// ---> player_spawn.c
+void find_player_spawn(t_game *game, char **map);
+void set_player_direction(t_game *game, char spawn);
+
 // int		player_controls(int keysym, t_game *game, t_player *player);
 
 // ---> hook.c

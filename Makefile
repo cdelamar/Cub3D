@@ -27,8 +27,8 @@ OBJ_DIR = obj/
 FILES =	main args file init\
 		texture color map\
 		str gnl utils free\
-		gameplay hook raycasting\
-		maths player_control
+		maths hook raycasting\
+		player_spawn player_control
 
 GAME = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))
 PARS = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))

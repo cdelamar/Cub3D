@@ -55,7 +55,7 @@ int	player_controls(int keycode, t_game *game)
 		strafe_player(game, -move_speed);
 	else if (keycode == 'd' || keycode == 'D') // Strafe right
 		strafe_player(game, move_speed);
-	else if (keycode == KEY_ESCAPE)            // Exit game
+	else if (keycode == KEY_ESCAPE || keycode == 'q')           // Exit game
 		close_mlx(game);
 	return (0);
 }
