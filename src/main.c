@@ -20,6 +20,20 @@ int main(int argc, char **argv)
         return (EXIT_FAILURE);
     }
 
+    printf("--- parsing output --- \n");
+    printf("textures \n");
+    printf ("north texture :%s\n",game->textures.north);
+    printf ("south texture :%s\n",game->textures.south);
+    printf ("east texture :%s\n",game->textures.east);
+    printf ("west texture :%s\n",game->textures.west);
+    printf("colors \n");
+    printf ("floor : %d, %d, %d \n", game->floor_color[0], game->floor_color[1], game->floor_color[2]);
+    printf ("ceiling : %d, %d, %d \n", game->ceiling_color[0], game->ceiling_color[1], game->ceiling_color[2]);
+    printf("map \n");
+    print_char_array(game->map);
+
+    printf("END : \n\n\n");
+
     // Initialisation de MiniLibX
     game->mlx = mlx_init();
     if (!game->mlx)
@@ -51,10 +65,11 @@ int main(int argc, char **argv)
         free(game);
         return (EXIT_FAILURE);
     }
-    print_char_array(game->map);
 
     // Lancer la boucle principale
     find_player_spawn(game, game->map);
+    printf("direction du joueur :\n");
+    printf("x : %f, y : %f\n", game->player.posX, game->player.posY);
     ft_mlx(game);
 
     free_game(game);
