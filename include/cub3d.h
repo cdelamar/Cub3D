@@ -187,8 +187,8 @@ int     parse_file(char *file_name, t_game *game);
 
 // ---> map.c
 bool	first_map_line(char *line);
-int		parse_map(t_game *game);
-int		check_map(t_game *game);
+int		parse_map(t_game *game, char *file_name);
+int		check_map(t_game *game, char * file_name);
 
 // ---> texture.c
 int check_texture_files(t_textures *textures);

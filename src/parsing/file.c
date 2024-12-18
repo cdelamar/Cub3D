@@ -52,7 +52,7 @@ int parse_file(char *file_name, t_game *game)
 	// partie parsing de map
 	game->map_fd = open(file_name, O_RDONLY);
 
-	if (check_map(game) == EXIT_FAILURE)
+	if (check_map(game, file_name) == EXIT_FAILURE)
 	{
 		close(game->map_fd);
 		return (EXIT_FAILURE);
