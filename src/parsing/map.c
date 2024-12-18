@@ -38,7 +38,8 @@ int parse_map(t_game *game)
 				}
 				game->map = game->map_buffer;
 				game->map[i] = line;
-				game->map[i][len - 1] = '\0';
+				if(game->map[i][len - 1] == '\n')
+					game->map[i][len - 1] = '\0';
 				i++;
 				line = get_next_line(game->map_fd);
 			}
