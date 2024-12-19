@@ -1,16 +1,26 @@
 #include "cub3d.h"
 
-void	move_player(t_game *game, double move_speed)
+void move_player(t_game *game, double move_speed)
 {
-	double newX = game->player.posX + game->player.dirX * move_speed;
-	double newY = game->player.posY + game->player.dirY * move_speed;
+    double newX = game->player.posX + game->player.dirX * move_speed;
+    double newY = game->player.posY + game->player.dirY * move_speed;
 
-	// Collision check before moving forward/backward
-	if (game->map[(int)newX][(int)game->player.posY] == '0')
-		game->player.posX = newX;
-	if (game->map[(int)game->player.posX][(int)newY] == '0')
-		game->player.posY = newY;
+    // Vérifiez les limites et la cohérence avant d’accéder à map
+    if ((int)game->player.posY >= 0 && (int)game->player.posY < game->map_height &&
+        (int)newX >= 0 && (int)newX < game->map_width &&
+        game->map[(int)game->player.posY][(int)newX] == '0')
+    {
+        game->player.posX = newX;
+    }
+
+    if ((int)newY >= 0 && (int)newY < game->map_height &&
+        (int)game->player.posX >= 0 && (int)game->player.posX < game->map_width &&
+        game->map[(int)newY][(int)game->player.posX] == '0')
+    {
+        game->player.posY = newY;
+    }
 }
+
 
 void	strafe_player(t_game *game, double move_speed)
 {

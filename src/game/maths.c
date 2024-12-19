@@ -68,7 +68,16 @@ void	dda(t_game *game, t_ray *ray, int *mapX, int *mapY)
 			*mapY += ray->stepY;
 			ray->side = 1;
 		}
-		if (game->map[*mapX] && game->map[*mapX][*mapY] && game->map[*mapX][*mapY] != '0')
+
+		// Vérification des limites de la carte juste après avoir incrémenté mapX et mapY
+		if (*mapY < 0 || *mapY >= game->map_height || *mapX < 0 || *mapX >= game->map_width)
+		{
+			ray->hit = 1; // On considère qu'on a heurté un "mur"
+			break;
+		}
+
+		// Vérifier le contenu de la carte maintenant que l’on sait qu’on est dans les limites
+		if (game->map[*mapY][*mapX] != '0')
 			ray->hit = 1;
 	}
 }

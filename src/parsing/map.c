@@ -1,5 +1,23 @@
 #include "cub3d.h"
 
+void compute_map_dimensions(t_game *game)
+{
+    int i;
+    int len;
+
+    i = 0;
+    game->map_height = 0;
+    game->map_width = 0;
+    while (game->map[i])
+    {
+        len = ft_strlen(game->map[i]);
+        if (len > game->map_width)
+            game->map_width = len;
+        i++;
+    }
+    game->map_height = i;
+}
+
 bool first_map_line(char *line)
 {
 	int i;
@@ -23,8 +41,10 @@ int count_map_lines(int fd)
     int line_count = 0;
 
     while ((line = get_next_line(fd)))
+    {
             line_count++;
-	free(line);
+            free(line);
+    }
     return line_count;
 }
 
@@ -80,6 +100,7 @@ int check_map(t_game *game, char *file_name)
 {
 	if (parse_map(game, file_name) == -1)
 		return (EXIT_FAILURE);
+    compute_map_dimensions(game);
 	// ici on rajoutera tous les prerequis
 	// pour bien verifier la map :
 	//. les bordures a 1

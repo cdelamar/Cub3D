@@ -134,6 +134,9 @@ typedef struct s_game
 	int		mapX;
 	int		mapY;
 
+    int         map_height;  // Hauteur de la carte (nombre de lignes)
+    int         map_width;   // Largeur maximale de la carte
+
 	void	*mlx;
 	void	*win;
 } t_game;
