@@ -143,6 +143,7 @@ typedef struct s_game
 
 // ---> free.c
 
+void	free_path_textures(t_game *game);
 void	free_textures(t_game *game);
 void	ft_freetab (char **tab);
 void	*ft_realloc(void *ptr, size_t new_size);
@@ -194,11 +195,11 @@ int		parse_map(t_game *game, char *file_name);
 int		check_map(t_game *game, char * file_name);
 
 // ---> texture.c
-int check_texture_files(t_textures *textures);
+int		check_texture_files(t_textures *textures);
 int     check_texture(t_game *game);
 int     path_texture(char *line, char **texture);
 int		parse_texture(char *line, t_game *game);
-void	load_textures(t_game *game);
+int		load_textures(t_game *game);
 
 // --- GAME ---
 

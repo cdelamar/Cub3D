@@ -24,6 +24,30 @@ void free_textures(t_game *game)
     }
 }
 
+void	free_path_textures(t_game *game)
+{
+	if (game->textures.north)
+	{
+		free(game->textures.north);
+		game->textures.north = NULL;
+	}
+	if (game->textures.south)
+	{
+		free(game->textures.south);
+		game->textures.south = NULL;
+	}
+	if (game->textures.west)
+	{
+		free(game->textures.west);
+		game->textures.west = NULL;
+	}
+	if (game->textures.east)
+	{
+		free(game->textures.east);
+		game->textures.east = NULL;
+	}
+}
+
 
 void ft_freetab (char **tab)
 {

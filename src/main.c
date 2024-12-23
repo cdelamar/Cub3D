@@ -45,8 +45,19 @@ int main(int argc, char **argv)
     }
 
     // Charger les textures après l'initialisation de MiniLibX
-    load_textures(game);
-
+   if (load_textures(game) == EXIT_FAILURE)
+    {
+        printf("deload texture\n\n");
+        free_textures(game);
+        // mlx_clear_window(game->mlx, game->win);
+        // mlx_destroy_window(game->mlx, game->win);
+        mlx_destroy_display(game->mlx);
+        ft_freetab(game->map);
+        free_path_textures(game);
+        free(game->mlx);
+        free(game);
+        exit(0);
+   }
     // Vérifiez que toutes les textures sont bien chargées
     if (!game->textures.north_img || !game->textures.south_img ||
         !game->textures.west_img || !game->textures.east_img)

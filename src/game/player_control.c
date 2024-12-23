@@ -24,13 +24,16 @@ void move_player(t_game *game, double move_speed)
 
 void	strafe_player(t_game *game, double move_speed)
 {
-	double strafeX = game->player.dirY * move_speed; // Perpendicular direction
-	double strafeY = -game->player.dirX * move_speed;
+	double	strafeX;
+	double	strafeY;
 
-	// Collision check before strafing
-	if (game->map[(int)(game->player.posX + strafeX)][(int)game->player.posY] == '0')
+	strafeX = game->player.dirY * move_speed;
+	strafeY = -game->player.dirX * move_speed;
+	if (game->map[(int)game->player.posY]
+		[(int)(game->player.posX + strafeX)] == '0')
 		game->player.posX += strafeX;
-	if (game->map[(int)game->player.posX][(int)(game->player.posY + strafeY)] == '0')
+	if (game->map[(int)(game->player.posY + strafeY)]
+		[(int)game->player.posX] == '0')
 		game->player.posY += strafeY;
 }
 
