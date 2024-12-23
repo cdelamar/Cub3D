@@ -32,15 +32,8 @@ bool	valid_args(int argc, char **argv)
 bool parsing(int argc, char **argv, t_game *game)
 {
 	if (valid_args(argc, argv) == false)
-	{
-		printf("***valid_args false***\n");
 		return (false);
-	}
-
 	if (parse_file(argv[1], game) == false)
-	{
-		printf("***parse_file false***\n");
 		return false;
-	}
 	return (true);
 }
