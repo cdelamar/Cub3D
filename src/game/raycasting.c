@@ -67,13 +67,14 @@ void cast_ray(t_game *game, void *img, int x)
 
     // Sélection de la texture
     if (game->ray.side == 0 && game->ray.rayX < 0)
-        texture_data = mlx_get_data_addr(game->textures.north_img, &bpp, &size_line, &endian);
-    else if (game->ray.side == 0 && game->ray.rayX > 0)
-        texture_data = mlx_get_data_addr(game->textures.south_img, &bpp, &size_line, &endian);
-    else if (game->ray.side == 1 && game->ray.rayY < 0)
         texture_data = mlx_get_data_addr(game->textures.west_img, &bpp, &size_line, &endian);
-    else
+    else if (game->ray.side == 0 && game->ray.rayX > 0)
         texture_data = mlx_get_data_addr(game->textures.east_img, &bpp, &size_line, &endian);
+    else if (game->ray.side == 1 && game->ray.rayY < 0)
+        texture_data = mlx_get_data_addr(game->textures.north_img, &bpp, &size_line, &endian);
+    else
+        texture_data = mlx_get_data_addr(game->textures.south_img, &bpp, &size_line, &endian);
+
 
     // Calcul de wallX
     if (game->ray.side == 0)
