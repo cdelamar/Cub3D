@@ -5,7 +5,6 @@ void move_player(t_game *game, double move_speed)
     double newX = game->player.posX + game->player.dirX * move_speed;
     double newY = game->player.posY + game->player.dirY * move_speed;
 
-    // Vérifiez les limites et la cohérence avant d’accéder à map
     if ((int)game->player.posY >= 0 && (int)game->player.posY < game->map_height &&
         (int)newX >= 0 && (int)newX < game->map_width &&
         game->map[(int)game->player.posY][(int)newX] == '0')
@@ -42,33 +41,31 @@ void	rotate_player(t_game *game, double rot_speed)
 	double oldDirX = game->player.dirX;
 	double oldPlaneX = game->ray.planeX;
 
-	// Rotate the player's direction vector
 	game->player.dirX = game->player.dirX * cos(rot_speed) - game->player.dirY * sin(rot_speed);
 	game->player.dirY = oldDirX * sin(rot_speed) + game->player.dirY * cos(rot_speed);
 
-	// Rotate the camera plane
 	game->ray.planeX = game->ray.planeX * cos(rot_speed) - game->ray.planeY * sin(rot_speed);
 	game->ray.planeY = oldPlaneX * sin(rot_speed) + game->ray.planeY * cos(rot_speed);
 }
 
 int	player_controls(int keycode, t_game *game)
 {
-	const double move_speed = 0.1; // Adjust speed as necessary
-	const double rot_speed = 0.05; // Adjust rotation speed as necessary
+	const double move_speed = 0.1;
+	const double rot_speed = 0.05;
 
-	if (keycode == ARROW_UP)       // Forward
+	if (keycode == ARROW_UP)
 		move_player(game, move_speed);
-	else if (keycode == ARROW_DOWN) // Backward
+	else if (keycode == ARROW_DOWN)
 		move_player(game, -move_speed);
-	else if (keycode == ARROW_LEFT) // Rotate left
+	else if (keycode == ARROW_LEFT)
 		rotate_player(game, -rot_speed);
-	else if (keycode == ARROW_RIGHT) // Rotate right
+	else if (keycode == ARROW_RIGHT)
 		rotate_player(game, rot_speed);
-	else if (keycode == 'a' || keycode == 'A') // Strafe left
+	else if (keycode == 'd' || keycode == 'D')
 		strafe_player(game, -move_speed);
-	else if (keycode == 'd' || keycode == 'D') // Strafe right
+	else if (keycode == 'a' || keycode == 'A')
 		strafe_player(game, move_speed);
-	else if (keycode == KEY_ESCAPE || keycode == 'q')           // Exit game
+	else if (keycode == KEY_ESCAPE || keycode == 'q')
 		close_mlx(game);
 	return (0);
 }

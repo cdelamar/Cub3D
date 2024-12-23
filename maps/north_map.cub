@@ -1,10 +1,14 @@
 NO ./ressources/north.xpm
-SO ./ressources/south.xpm
 WE ./ressources/west.xpm
 EA ./ressources/east.xpm
 
+
+
+
+
 C 10,90,250
 F 34,139,35
+SO ./ressources/south.xpm
 
 11111111111
 11111000111

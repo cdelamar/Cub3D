@@ -2,15 +2,15 @@
 
 char *copy_gnl_line(char *line)
 {
-    char	*result;
-    int		len;
+	char	*result;
+	int		len;
 
-    len = ft_strlen(line);
-    result = ft_strdup(line);
+	len = ft_strlen(line);
+	result = ft_strdup(line);
 
 	if (result[len - 1] == '\n')
-    	result[len - 1] = '\0';
-    return (result);
+		result[len - 1] = '\0';
+	return (result);
 }
 
 int	rev_strncmp(char *s1, char *s2, size_t n)
@@ -37,32 +37,32 @@ int	rev_strncmp(char *s1, char *s2, size_t n)
 
 void print_int_array(int *array, int size)
 {
-    int i = 0;
+	int i = 0;
 
-    if (!array || size <= 0) // Vérification des entrées
-    {
-        printf("Invalid array or size.\n");
-        return;
-    }
+	if (!array || size <= 0)
+	{
+		printf("Invalid array or size.\n");
+		return;
+	}
 
-    printf("Array: [");
-    while (i < size)
-    {
-        printf("%d", array[i]);
-        if (i < size - 1)
-            printf(", ");
-        i++;
-    }
-    printf("]\n");
+	printf("Array: [");
+	while (i < size)
+	{
+		printf("%d", array[i]);
+		if (i < size - 1)
+			printf(", ");
+		i++;
+	}
+	printf("]\n");
 }
 
 void print_char_array(char **array)
 {
-    if (!array)
-        return;
-    while (*array)
+	if (!array)
+		return;
+	while (*array)
 	{
-        printf("%s\n", *array);
-        array++;
-    }
+		printf("%s\n", *array);
+		array++;
+	}
 }

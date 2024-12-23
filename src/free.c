@@ -89,14 +89,14 @@ void *ft_realloc(void *ptr, size_t new_size)
 void free_game(t_game *game)
 {
     free_textures(game);
-    /*if (game->textures.north)
+    if (game->textures.north)
 		free(game->textures.north);
     if (game->textures.south)
 		free(game->textures.south);
     if (game->textures.west)
 		free(game->textures.west);
     if (game->textures.east)
-		free(game->textures.east);*/
+		free(game->textures.east);
     ft_freetab(game->map);
     // ft_freetab(game->map_buffer);
     // ajouter plus tard

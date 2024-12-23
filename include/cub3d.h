@@ -207,13 +207,10 @@ int		load_textures(t_game *game);
 int find_player_spawn(t_game *game, char **map);
 void set_player_direction(t_game *game, char spawn);
 
-// int		player_controls(int keysym, t_game *game, t_player *player);
-
 // ---> hook.c
 
 int render_frame(void *param);
 int		close_mlx (t_game *game);
-int		quit_game(t_game *game);
 void	ft_mlx(t_game *game);
 
 // ---> raycasting.c
@@ -242,5 +239,10 @@ int		player_controls(int keycode, t_game *game);
 void error_free(t_game *game);
 void error_mlx(t_game *game);
 void error_win(t_game *game);
+
+// ---> direction.c
+
+void	set_player_direction(t_game *game, char spawn);
+
 
 #endif
