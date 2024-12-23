@@ -28,7 +28,7 @@ FILES =	main args file init\
 		texture color map\
 		str gnl utils free\
 		maths hook raycasting\
-		player_spawn player_control
+		player_spawn player_control error
 
 GAME = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))
 PARS = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))

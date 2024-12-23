@@ -31,7 +31,7 @@ void set_player_direction(t_game *game, char spawn)
     }
 }
 
-void find_player_spawn(t_game *game, char **map)
+int find_player_spawn(t_game *game, char **map)
 {
     int y = 0;
     int x;
@@ -47,7 +47,7 @@ void find_player_spawn(t_game *game, char **map)
                 if (game->player.posX != -1) // Erreur si plusieurs spawns
                 {
 					ft_putendl_fd("Error\nMultiple spawn points found\n", 2);
-					exit(0);
+					return(EXIT_FAILURE);
 				}
 				game->player.posX = x + 0.5;     // Position centrée dans la case
                 game->player.posY = y + 0.5;
@@ -59,6 +59,7 @@ void find_player_spawn(t_game *game, char **map)
     if (game->player.posX == -1)
 	{
 		ft_putendl_fd("Error\nNo spawn point found on the map\n", 2);
-		exit(0);
+		return(EXIT_FAILURE);
 	}
+    return (EXIT_SUCCESS);
 }

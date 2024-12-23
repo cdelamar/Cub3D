@@ -187,7 +187,7 @@ int		parse_color(char *line, t_game *game);
 
 // ---> file.c
 int     parse_line(char *line, t_game *game);
-int     parse_file(char *file_name, t_game *game);
+bool     parse_file(char *file_name, t_game *game);
 
 // ---> map.c
 bool	first_map_line(char *line);
@@ -204,7 +204,7 @@ int		load_textures(t_game *game);
 // --- GAME ---
 
 // ---> player_spawn.c
-void find_player_spawn(t_game *game, char **map);
+int find_player_spawn(t_game *game, char **map);
 void set_player_direction(t_game *game, char spawn);
 
 // int		player_controls(int keysym, t_game *game, t_player *player);
@@ -236,5 +236,11 @@ void	move_player(t_game *game, double move_speed);
 void	strafe_player(t_game *game, double move_speed);
 void	rotate_player(t_game *game, double rot_speed);
 int		player_controls(int keycode, t_game *game);
+
+// ---> error.c
+
+void error_free(t_game *game);
+void error_mlx(t_game *game);
+void error_win(t_game *game);
 
 #endif

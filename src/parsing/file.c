@@ -37,7 +37,7 @@ int check_texture_colors(t_game *game)
 	return (EXIT_SUCCESS);
 }
 
-int parse_file(char *file_name, t_game *game)
+bool parse_file(char *file_name, t_game *game)
 {
 	// partie parsing textures / couleurs
 	game->fd = open(file_name, O_RDONLY);
@@ -45,7 +45,7 @@ int parse_file(char *file_name, t_game *game)
 	if(check_texture_colors(game) == EXIT_FAILURE)
 	{
 		close(game->fd);
-		return (EXIT_FAILURE);
+		return (false);
 	}
 	close (game->fd);
 
@@ -55,7 +55,7 @@ int parse_file(char *file_name, t_game *game)
 	if (check_map(game, file_name) == EXIT_FAILURE)
 	{
 		close(game->map_fd);
-		return (EXIT_FAILURE);
+		return (false);
 	}
 	close(game->map_fd);
 

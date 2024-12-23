@@ -1,5 +1,28 @@
 #include "cub3d.h"
 
+int	check_map_borders(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < game->map_width)
+	{
+		if (game->map[0][i] != '1'
+			|| game->map[game->map_height - 1][i] != '1')
+			return (EXIT_FAILURE);
+		i++;
+	}
+	i = 0;
+	while (i < game->map_height)
+	{
+		if (game->map[i][0] != '1'
+			|| game->map[i][game->map_width - 1] != '1')
+			return (EXIT_FAILURE);
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+
 void compute_map_dimensions(t_game *game)
 {
     int i;
@@ -100,7 +123,13 @@ int check_map(t_game *game, char *file_name)
 {
 	if (parse_map(game, file_name) == -1)
 		return (EXIT_FAILURE);
+    //rajouter ici si la map est bien avec bordure
     compute_map_dimensions(game);
+	if (check_map_borders(game) == EXIT_FAILURE)
+	{
+		ft_putendl_fd("Error\nMap borders are not all '1'.", 2);
+		return (EXIT_FAILURE);
+	}
 	// ici on rajoutera tous les prerequis
 	// pour bien verifier la map :
 	//. les bordures a 1
