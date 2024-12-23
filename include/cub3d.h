@@ -49,8 +49,8 @@
 # define SCREEN_WIDTH			1640
 # define SCREEN_HEIGHT			800
 
-#define	WIN_WIDTH 1640
-#define WIN_HEIGHT 800
+# define WIN_WIDTH				1640
+# define WIN_HEIGHT				800
 
 # define ARROW_UP  				65362
 # define ARROW_DOWN  			65364
@@ -67,20 +67,17 @@
 
 typedef struct s_textures
 {
-    char    *north;     // Path to north texture
-    char    *south;     // Path to south texture
-    char    *west;      // Path to west texture
-    char    *east;      // Path to east texture
-
-    void    *north_img; // MiniLibX image for north texture
-    void    *south_img; // MiniLibX image for south texture
-    void    *west_img;  // MiniLibX image for west texture
-    void    *east_img;  // MiniLibX image for east texture
-
-    int     tex_width;  // Texture width (all textures are assumed to have the same size)
-    int     tex_height; // Texture height
-}   t_textures;
-
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+	void	*north_img;
+	void	*south_img;
+	void	*west_img;
+	void	*east_img;
+	int		tex_width;
+	int		tex_height;
+}	t_textures;
 
 typedef struct s_draw
 {
@@ -100,36 +97,36 @@ typedef struct s_draw
 
 typedef struct s_ray
 {
-	double camX;		// Coordonnée x dans l'espace caméra
-	double rayX;		// Direction du rayon sur l'axe X
-	double rayY;     	// Direction du rayon sur l'axe Y
+	double	camX;
+	double	rayX;
+	double	rayY;
 
-	double sideDistX;	// Distance initiale jusqu'à la première intersection X
-	double sideDistY;	// Distance initiale jusqu'à la première intersection Y
-	double deltaDistX;   // Distance entre deux intersections consécutives sur X
-	double deltaDistY;   // Distance entre deux intersections consécutives sur Y
-	double perpWallDist; // Distance perpendiculaire jusqu'au mur
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	perpWallDist;
 
-	int stepX;           // Direction à prendre sur l'axe X (1 ou -1)
-	int stepY;           // Direction à prendre sur l'axe Y (1 ou -1)
-	int hit;             // Indique si un mur a été touché (0 ou 1)
-	int side;            // Côté du mur touché (0 = NS, 1 = EW)
+	int	stepX;
+	int	stepY;
+	int	hit;
+	int	side;
 
-	double planeX;			// camera plane
-	double planeY;
+	double	planeX;
+	double	planeY;
 
-	int drawStart;
-	int drawEnd;
-} t_ray;
+	int	drawStart;
+	int	drawEnd;
+}	t_ray;
 
 typedef struct s_player
 {
-	double posX;	// vector
-	double posY;
-	double dirX;	// direction
-	double dirY;
-	double time;
-	double old_time;
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	double	time;
+	double	old_time;
 }	t_player;
 
 typedef struct s_game
@@ -137,31 +134,31 @@ typedef struct s_game
 	t_textures	textures;
 	t_player	player;
 	t_ray		ray;
-	char	*file_name;
+	char		*file_name;
 
-	int		fd;
-	int		map_fd;
+	int			fd;
+	int			map_fd;
 
-	int		floor_color[3];		// Couleurs RGB sol
-	int		ceiling_color[3];	// Couleurs RGB plafond
+	int			floor_color[3];
+	int			ceiling_color[3];
 
-	char	**map;				// Tableau 2D de map
-	char	**map_buffer;
-	int		mapX;
-	int		mapY;
+	char		**map;
+	char		**map_buffer;
+	int			mapX;
+	int			mapY;
 
-    int         map_height;  // Hauteur de la carte (nombre de lignes)
-    int         map_width;   // Largeur maximale de la carte
+	int         map_height;
+	int			map_width;
 
-	void	*mlx;
-	void	*win;
-} t_game;
+	void		*mlx;
+	void		*win;
+}	t_game;
 
 // ---> free.c
 
 void	free_path_textures(t_game *game);
 void	free_textures(t_game *game);
-void	ft_freetab (char **tab);
+void	ft_freetab(char **tab);
 void	*ft_realloc(void *ptr, size_t new_size);
 void	free_game(t_game *game);
 
@@ -169,9 +166,9 @@ void	free_game(t_game *game);
 char	*get_next_line(int fd);
 
 // ---> init.c
-void init_game(t_game *game);
-void init_player(t_player *player);
-void init_ray(t_ray *ray);
+void	init_game(t_game *game);
+void	init_player(t_player *player);
+void	init_ray(t_ray *ray);
 
 // ---> str.c
 char	*copy_gnl_line(char *line);
@@ -180,14 +177,11 @@ void	print_int_array(int *array, int size);
 void	print_char_array(char **array);
 void	free_split(char **tab);
 
-
 // ---> utils.c
 bool	is_empty_line(char *line);
-bool    is_numbr(char *str);
+bool	is_numbr(char *str);
 bool	is_rgb(int c);
-char    *skip_spaces(char *line);
-
-// --- PARSING ---
+char	*skip_spaces(char *line);
 
 // ---> args.c
 bool	file_exists(char *filename);
@@ -202,44 +196,41 @@ int		path_color(char *line, int color[3]);
 int		parse_color(char *line, t_game *game);
 
 // ---> file.c
-int     parse_line(char *line, t_game *game);
-bool     parse_file(char *file_name, t_game *game);
+int		parse_line(char *line, t_game *game);
+bool	parse_file(char *file_name, t_game *game);
 
 // ---> map.c
 bool	first_map_line(char *line);
 int		parse_map(t_game *game, char *file_name);
-int		check_map(t_game *game, char * file_name);
+int		check_map(t_game *game, char *file_name);
 
 // ---> texture.c
 int		check_texture_files(t_textures *textures);
-int     check_texture(t_game *game);
-int     path_texture(char *line, char **texture);
+int		check_texture(t_game *game);
+int		path_texture(char *line, char **texture);
 int		parse_texture(char *line, t_game *game);
 int		load_textures(t_game *game);
 
 // --- GAME ---
 
 // ---> player_spawn.c
-int find_player_spawn(t_game *game, char **map);
-void set_player_direction(t_game *game, char spawn);
+int		find_player_spawn(t_game *game, char **map);
+void	set_player_direction(t_game *game, char spawn);
 
 // ---> hook.c
 
-int render_frame(void *param);
-int		close_mlx (t_game *game);
+int		render_frame(void *param);
+int		close_mlx(t_game *game);
 void	ft_mlx(t_game *game);
 
-// ---> raycasting.c
-
 char	*get_texture_addr(void *img, int *bpp, int *size_line, int *endian);
-void draw_floor_and_ceiling(t_game *game, void *img);
+void	draw_floor_and_ceiling(t_game *game, void *img);
 void	cast_ray(t_game *game, void *img, int x);
-void		raycaster(t_game *game);
+void	raycaster(t_game *game);
 
 // ---> maths.c
 
 void	draw_pixel(void *data_addr, int x, int y, int color);
-void	draw_line(void *img, int x, int start, int end, int color);
 void	calc_step(t_game *game, t_ray *ray, int *mapX, int *mapY);
 void	dda(t_game *game, t_ray *ray, int *mapX, int *mapY);
 
@@ -252,9 +243,9 @@ int		player_controls(int keycode, t_game *game);
 
 // ---> error.c
 
-void error_free(t_game *game);
-void error_mlx(t_game *game);
-void error_win(t_game *game);
+void	error_free(t_game *game);
+void	error_mlx(t_game *game);
+void	error_win(t_game *game);
 
 // ---> direction.c
 

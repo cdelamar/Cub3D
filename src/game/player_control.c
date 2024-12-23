@@ -1,25 +1,24 @@
 #include "cub3d.h"
 
-void move_player(t_game *game, double move_speed)
+void	move_player(t_game *game, double move_speed)
 {
-    double newX = game->player.posX + game->player.dirX * move_speed;
-    double newY = game->player.posY + game->player.dirY * move_speed;
+	double new_x = game->player.posX + game->player.dirX * move_speed;
+	double new_y = game->player.posY + game->player.dirY * move_speed;
 
     if ((int)game->player.posY >= 0 && (int)game->player.posY < game->map_height &&
-        (int)newX >= 0 && (int)newX < game->map_width &&
-        game->map[(int)game->player.posY][(int)newX] == '0')
+        (int)new_x >= 0 && (int)new_x < game->map_width &&
+        game->map[(int)game->player.posY][(int)new_x] == '0')
     {
-        game->player.posX = newX;
+        game->player.posX = new_x;
     }
 
-    if ((int)newY >= 0 && (int)newY < game->map_height &&
+    if ((int)new_y >= 0 && (int)new_y < game->map_height &&
         (int)game->player.posX >= 0 && (int)game->player.posX < game->map_width &&
-        game->map[(int)newY][(int)game->player.posX] == '0')
+        game->map[(int)new_y][(int)game->player.posX] == '0')
     {
-        game->player.posY = newY;
+        game->player.posY = new_y;
     }
 }
-
 
 void	strafe_player(t_game *game, double move_speed)
 {
@@ -41,10 +40,12 @@ void	rotate_player(t_game *game, double rot_speed)
 	double oldDirX = game->player.dirX;
 	double oldPlaneX = game->ray.planeX;
 
-	game->player.dirX = game->player.dirX * cos(rot_speed) - game->player.dirY * sin(rot_speed);
+	game->player.dirX = game->player.dirX * cos(rot_speed)
+		- game->player.dirY * sin(rot_speed);
 	game->player.dirY = oldDirX * sin(rot_speed) + game->player.dirY * cos(rot_speed);
 
-	game->ray.planeX = game->ray.planeX * cos(rot_speed) - game->ray.planeY * sin(rot_speed);
+	game->ray.planeX = game->ray.planeX * cos(rot_speed)
+		- game->ray.planeY * sin(rot_speed);
 	game->ray.planeY = oldPlaneX * sin(rot_speed) + game->ray.planeY * cos(rot_speed);
 }
 

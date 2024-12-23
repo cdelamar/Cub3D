@@ -13,18 +13,6 @@ void	draw_pixel(void *data_addr, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-void	draw_line(void *img, int x, int start, int end, int color)
-{
-	int	y;
-
-	y = start;
-	while (y < end)
-	{
-		draw_pixel(img, x, y, color);
-		y++;
-	}
-}
-
 void	calc_step(t_game *game, t_ray *ray, int *mapX, int *mapY)
 {
 	*mapX = (int)game->player.posX;
@@ -68,8 +56,8 @@ void	dda(t_game *game, t_ray *ray, int *mapX, int *mapY)
 			*mapY += ray->stepY;
 			ray->side = 1;
 		}
-
-		if (*mapY < 0 || *mapY >= game->map_height || *mapX < 0 || *mapX >= game->map_width)
+		if (*mapY < 0 || *mapY >= game->map_height
+			|| *mapX < 0 || *mapX >= game->map_width)
 		{
 			ray->hit = 1;
 			break;

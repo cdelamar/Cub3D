@@ -1,5 +1,20 @@
 #include "cub3d.h"
 
+bool first_map_line(char *line)
+{
+	int i;
+
+	line = skip_spaces(line);
+	i = 0;
+	while (line [i] && line[i] != '\n')
+	{
+		if (line[i] != '1')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 char	*copy_gnl_line(char *line)
 {
 	char	*result;

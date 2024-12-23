@@ -25,10 +25,10 @@ void	cast_ray(t_game *game, void *img, int x)
 	draw_column(game, img, x, &d);
 }
 
-void raycaster(t_game *game)
+void	raycaster(t_game *game)
 {
-	void *img;
-	int x;
+	void	*img;
+	int		x;
 
 	img = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
 	if (!img)
@@ -36,21 +36,13 @@ void raycaster(t_game *game)
 		ft_putendl_fd("Error\nFailed to create image.", 2);
 		exit(EXIT_FAILURE);
 	}
-
 	draw_floor_and_ceiling(game, img);
-
 	x = 0;
 	while (x < WIN_WIDTH)
 	{
 		cast_ray(game, img, x);
 		x++;
 	}
-
 	mlx_put_image_to_window(game->mlx, game->win, img, 0, 0);
 	mlx_destroy_image(game->mlx, img);
 }
-
-
-
-
-

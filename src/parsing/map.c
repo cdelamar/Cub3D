@@ -23,10 +23,10 @@ int	check_map_borders(t_game *game)
 	return (EXIT_SUCCESS);
 }
 
-void compute_map_dimensions(t_game *game)
+void	compute_map_dimensions(t_game *game)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = 0;
 	game->map_height = 0;
@@ -41,55 +41,40 @@ void compute_map_dimensions(t_game *game)
 	game->map_height = i;
 }
 
-bool first_map_line(char *line)
+int	count_map_lines(int fd)
 {
-	int i;
+	char	*line;
+	int		line_count;
 
-	line = skip_spaces(line);
-	i = 0;
-	while (line [i] && line[i] != '\n')
-	{
-		if (line[i] != '1')
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
-#include "cub3d.h"
-
-int count_map_lines(int fd)
-{
-	char *line;
-	int line_count = 0;
-
+	line_count = 0;
 	while ((line = get_next_line(fd)))
 	{
-			line_count++;
-			free(line);
+		line_count++;
+		free(line);
 	}
-	return line_count;
+	return (line_count);
 }
 
-int parse_map(t_game *game,char *file_name)
+int	parse_map(t_game *game, char *file_name)
 {
-	char *line;
-	int i;
+	char	*line;
+	int		map_fd_copy;
+	int		line_count;
+	int		i;
 
 	i = 0;
-	int map_fd_copy = open(file_name, O_RDONLY);
+	map_fd_copy = open(file_name, O_RDONLY);
 	if (map_fd_copy < 0)
 		return (EXIT_FAILURE);
-	int line_count = count_map_lines(map_fd_copy);
+	line_count = count_map_lines(map_fd_copy);
 	close(map_fd_copy);
-
 	game->map = malloc(sizeof(char *) * (line_count + 1));
 	if (!game->map)
 		return (EXIT_FAILURE);
-
 	while ((line = get_next_line(game->map_fd)))
 	{
-		if (line && (is_empty_line(line) == false) && first_map_line(skip_spaces(line)))
+		if (line && (is_empty_line(line) == false)
+			&& first_map_line(skip_spaces(line)))
 		{
 			while (line && i < line_count)
 			{
@@ -115,16 +100,15 @@ int parse_map(t_game *game,char *file_name)
 	return (EXIT_FAILURE);
 }
 
-int check_map(t_game *game, char *file_name)
+int	check_map(t_game *game, char *file_name)
 {
 	if (parse_map(game, file_name) == -1)
 		return (EXIT_FAILURE);
-	//rajouter ici si la map est bien avec bordure
 	compute_map_dimensions(game);
 	if (check_map_borders(game) == EXIT_FAILURE)
 	{
 		ft_putendl_fd("Error\nMap borders are not all '1'.", 2);
 		return (EXIT_FAILURE);
 	}
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int check_texture_files(t_textures *textures)
+int	check_texture_files(t_textures *textures)
 {
 	if (!file_exists(textures->north))
 	{
@@ -25,10 +25,10 @@ int check_texture_files(t_textures *textures)
 	return (EXIT_SUCCESS);
 }
 
-int check_texture(t_game *game)
+int	check_texture(t_game *game)
 {
-	if (!game->textures.north || !game->textures.south ||
-		!game->textures.east || !game->textures.west)
+	if (!game->textures.north || !game->textures.south
+		|| !game->textures.east || !game->textures.west)
 	{
 		ft_putendl_fd("Error\nMissing one or more texture paths.", 2);
 		return (EXIT_FAILURE);
@@ -38,10 +38,9 @@ int check_texture(t_game *game)
 	return (EXIT_SUCCESS);
 }
 
-int path_texture(char *line, char **texture)
+int	path_texture(char *line, char **texture)
 {
 	line = skip_spaces(line);
-
 	if (*texture != NULL)
 	{
 		ft_putendl_fd("Error\nDuplicate texture identifier.", 2);
@@ -56,18 +55,18 @@ int path_texture(char *line, char **texture)
 	return (EXIT_SUCCESS);
 }
 
-int parse_texture(char *line, t_game *game)
+int	parse_texture(char *line, t_game *game)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
-		return path_texture(line + 3, &(game->textures.north));
+		return (path_texture(line + 3, &(game->textures.north)));
 	if (ft_strncmp(line, "SO ", 3) == 0)
-		return path_texture(line + 3, &(game->textures.south));
+		return (path_texture(line + 3, &(game->textures.south)));
 	if (ft_strncmp(line, "WE ", 3) == 0)
-		return path_texture(line + 3, &(game->textures.west));
+		return (path_texture(line + 3, &(game->textures.west)));
 	if (ft_strncmp(line, "EA ", 3) == 0)
-		return path_texture(line + 3, &(game->textures.east));
+		return (path_texture(line + 3, &(game->textures.east)));
 	else
-		return(EXIT_SUCCESS);
+		return (EXIT_SUCCESS);
 }
 
 int	load_textures(t_game *game)
@@ -96,6 +95,3 @@ int	load_textures(t_game *game)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
-
-
-
