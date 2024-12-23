@@ -1,32 +1,48 @@
 #include "cub3d.h"
 
-bool is_empty_line(char *line)
+int	three_colors(char **values)
 {
-    if (!line)
-        return (true);
-    while (*line)
-    {
-        if (*line != ' ' && *line != '\n')
-            return (false);
-        line++;
-    }
-    return (true);
+	int	i;
+
+	i = 0;
+	while (values[i] != NULL)
+		i++;
+	if (i != 3)
+	{
+		ft_putendl_fd("Error\nInvalid color format (expected 3 values).", 2);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }
 
-bool is_numbr(char *str)
+bool	is_empty_line(char *line)
 {
-    int i = 0;
+	if (!line)
+		return (true);
+	while (*line)
+	{
+		if (*line != ' ' && *line != '\n')
+			return (false);
+		line++;
+	}
+	return (true);
+}
 
-    if (!str || *str == '\0')
-        return (false);
-    str = skip_spaces(str);
-    while (str[i])
-    {
-        if (!isdigit(str[i]) && str[i] != '\n')
-            return (false);
-        i++;
-    }
-    return (true);
+bool	is_numbr(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str || *str == '\0')
+		return (false);
+	str = skip_spaces(str);
+	while (str[i])
+	{
+		if (!isdigit(str[i]) && str[i] != '\n')
+			return (false);
+		i++;
+	}
+	return (true);
 }
 
 bool	is_rgb(int c)
@@ -37,9 +53,9 @@ bool	is_rgb(int c)
 		return (false);
 }
 
-char *skip_spaces(char *line)
+char	*skip_spaces(char *line)
 {
-    while (*line == ' ')
-        line++;
-    return line;
+	while (*line == ' ')
+		line++;
+	return (line);
 }

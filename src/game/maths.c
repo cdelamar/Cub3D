@@ -79,16 +79,3 @@ void	dda(t_game *game, t_ray *ray, int *mapX, int *mapY)
 			ray->hit = 1;
 	}
 }
-
-int		calc_wall_dist(t_game *game, t_ray *ray, int mapX, int mapY)
-{
-	double	perpWallDist;
-	int		lineHeight;
-
-	if (ray->side == 0)
-		perpWallDist = (mapX - game->player.posX + (1 - ray->stepX) / 2) / ray->rayX;
-	else
-		perpWallDist = (mapY - game->player.posY + (1 - ray->stepY) / 2) / ray->rayY;
-	lineHeight = (int)(WIN_HEIGHT / perpWallDist);
-	return (lineHeight);
-}

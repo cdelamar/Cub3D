@@ -2,11 +2,13 @@
 
 bool	file_exists(char *filename)
 {
-    int fd = open(filename, O_RDONLY);
-    if (fd < 0)
-        return (false);
-    close(fd);
-    return (true);
+	int		fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (false);
+	close(fd);
+	return (true);
 }
 
 bool	valid_args(int argc, char **argv)
@@ -29,11 +31,11 @@ bool	valid_args(int argc, char **argv)
 	return (true);
 }
 
-bool parsing(int argc, char **argv, t_game *game)
+bool	parsing(int argc, char **argv, t_game *game)
 {
 	if (valid_args(argc, argv) == false)
 		return (false);
 	if (parse_file(argv[1], game) == false)
-		return false;
+		return (false);
 	return (true);
 }

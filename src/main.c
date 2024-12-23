@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-
 int	init_and_parse(t_game **game, int argc, char **argv)
 {
 	*game = malloc(sizeof(t_game));

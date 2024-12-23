@@ -82,6 +82,22 @@ typedef struct s_textures
 }   t_textures;
 
 
+typedef struct s_draw
+{
+	int		start;
+	int		end;
+	int		height;
+	double	wallX;
+	int		texX;
+	int		texY;
+	double	step;
+	double	texPos;
+	char	*texture_data;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_draw;
+
 typedef struct s_ray
 {
 	double camX;		// Coordonnée x dans l'espace caméra
@@ -215,6 +231,7 @@ void	ft_mlx(t_game *game);
 
 // ---> raycasting.c
 
+char	*get_texture_addr(void *img, int *bpp, int *size_line, int *endian);
 void draw_floor_and_ceiling(t_game *game, void *img);
 void	cast_ray(t_game *game, void *img, int x);
 void		raycaster(t_game *game);
@@ -225,7 +242,6 @@ void	draw_pixel(void *data_addr, int x, int y, int color);
 void	draw_line(void *img, int x, int start, int end, int color);
 void	calc_step(t_game *game, t_ray *ray, int *mapX, int *mapY);
 void	dda(t_game *game, t_ray *ray, int *mapX, int *mapY);
-int		calc_wall_dist(t_game *game, t_ray *ray, int mapX, int mapY);
 
 // ---> player_control.c
 
@@ -244,5 +260,12 @@ void error_win(t_game *game);
 
 void	set_player_direction(t_game *game, char spawn);
 
+// ---> draw.c
+
+char	*select_texture_data(t_game *game, int *bpp, int *sl, int *end);
+void	compute_line_dimensions(t_game *game, t_draw *d);
+void	draw_column(t_game *game, void *img, int x, t_draw *d);
+void	calc_wall_dist(t_game *game);
+void	compute_wallX_and_texX(t_game *game, t_draw *d);
 
 #endif
