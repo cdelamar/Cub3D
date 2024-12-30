@@ -9,19 +9,19 @@ void	cast_ray(t_game *game, void *img, int x)
 {
 	t_draw	d;
 
-	game->ray.camX = 2 * x / (double)WIN_WIDTH - 1;
-	game->ray.rayX = game->player.dirX + game->ray.planeX * game->ray.camX;
-	game->ray.rayY = game->player.dirY + game->ray.planeY * game->ray.camX;
-	game->ray.deltaDistX = fabs(1 / game->ray.rayX);
-	game->ray.deltaDistY = fabs(1 / game->ray.rayY);
-	calc_step(game, &game->ray, &game->mapX, &game->mapY);
-	dda(game, &game->ray, &game->mapX, &game->mapY);
+	game->ray.cam_x = 2 * x / (double)WIN_WIDTH - 1;
+	game->ray.ray_x = game->player.dir_x + game->ray.plane_x * game->ray.cam_x;
+	game->ray.ray_y = game->player.dir_y + game->ray.plane_y * game->ray.cam_x;
+	game->ray.delta_dist_x = fabs(1 / game->ray.ray_x);
+	game->ray.delta_dist_y = fabs(1 / game->ray.ray_y);
+	calc_step(game, &game->ray, &game->map_x, &game->map_y);
+	dda(game, &game->ray, &game->map_x, &game->map_y);
 	calc_wall_dist(game);
 	compute_line_dimensions(game, &d);
 	d.texture_data = select_texture_data(game, &d.bpp, &d.size_line, &d.endian);
-	compute_wallX_and_texX(game, &d);
+	compute_wallx_and_texx(game, &d);
 	d.step = (1.0 * game->textures.tex_height) / d.height;
-	d.texPos = (d.start - WIN_HEIGHT / 2 + d.height / 2) * d.step;
+	d.tex_pos = (d.start - WIN_HEIGHT / 2 + d.height / 2) * d.step;
 	draw_column(game, img, x, &d);
 }
 

@@ -13,57 +13,58 @@ void	draw_pixel(void *data_addr, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-void	calc_step(t_game *game, t_ray *ray, int *mapX, int *mapY)
+void	calc_step(t_game *game, t_ray *ray, int *map_x, int *map_y)
 {
-	*mapX = (int)game->player.posX;
-	*mapY = (int)game->player.posY;
-	if (ray->rayX < 0)
+	*map_x = (int)game->player.pos_x;
+	*map_y = (int)game->player.pos_y;
+	if (ray->ray_x < 0)
 	{
-		ray->stepX = -1;
-		ray->sideDistX = (game->player.posX - *mapX) * ray->deltaDistX;
+		ray->step_x = -1;
+		ray->side_dist_x = (game->player.pos_x - *map_x) * ray->delta_dist_x;
 	}
 	else
 	{
-		ray->stepX = 1;
-		ray->sideDistX = (*mapX + 1.0 - game->player.posX) * ray->deltaDistX;
+		ray->step_x = 1;
+		ray->side_dist_x
+			= (*map_x + 1.0 - game->player.pos_x) * ray->delta_dist_x;
 	}
-	if (ray->rayY < 0)
+	if (ray->ray_y < 0)
 	{
-		ray->stepY = -1;
-		ray->sideDistY = (game->player.posY - *mapY) * ray->deltaDistY;
+		ray->step_y = -1;
+		ray->side_dist_y = (game->player.pos_y - *map_y) * ray->delta_dist_y;
 	}
 	else
 	{
-		ray->stepY = 1;
-		ray->sideDistY = (*mapY + 1.0 - game->player.posY) * ray->deltaDistY;
+		ray->step_y = 1;
+		ray->side_dist_y
+			= (*map_y + 1.0 - game->player.pos_y) * ray->delta_dist_y;
 	}
 }
 
-void	dda(t_game *game, t_ray *ray, int *mapX, int *mapY)
+void	dda(t_game *game, t_ray *ray, int *map_x, int *map_y)
 {
 	ray->hit = 0;
 	while (ray->hit == 0)
 	{
-		if (ray->sideDistX < ray->sideDistY)
+		if (ray->side_dist_x < ray->side_dist_y)
 		{
-			ray->sideDistX += ray->deltaDistX;
-			*mapX += ray->stepX;
+			ray->side_dist_x += ray->delta_dist_x;
+			*map_x += ray->step_x;
 			ray->side = 0;
 		}
 		else
 		{
-			ray->sideDistY += ray->deltaDistY;
-			*mapY += ray->stepY;
+			ray->side_dist_y += ray->delta_dist_y;
+			*map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (*mapY < 0 || *mapY >= game->map_height
-			|| *mapX < 0 || *mapX >= game->map_width)
+		if (*map_y < 0 || *map_y >= game->map_height
+			|| *map_x < 0 || *map_x >= game->map_width)
 		{
 			ray->hit = 1;
-			break;
+			break ;
 		}
-
-		if (game->map[*mapY][*mapX] != '0')
+		if (game->map[*map_y][*map_x] != '0')
 			ray->hit = 1;
 	}
 }

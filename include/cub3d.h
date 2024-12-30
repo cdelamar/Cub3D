@@ -84,11 +84,11 @@ typedef struct s_draw
 	int		start;
 	int		end;
 	int		height;
-	double	wallX;
-	int		texX;
-	int		texY;
+	double	wall_x;
+	int		tex_x;
+	int		tex_y;
 	double	step;
-	double	texPos;
+	double	tex_pos;
 	char	*texture_data;
 	int		bpp;
 	int		size_line;
@@ -97,34 +97,34 @@ typedef struct s_draw
 
 typedef struct s_ray
 {
-	double	camX;
-	double	rayX;
-	double	rayY;
+	double	cam_x;
+	double	ray_x;
+	double	ray_y;
 
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	perpWallDist;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_walldist;
 
-	int	stepX;
-	int	stepY;
-	int	hit;
-	int	side;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
 
-	double	planeX;
-	double	planeY;
+	double	plane_x;
+	double	plane_y;
 
-	int	drawStart;
-	int	drawEnd;
+	int		draw_start;
+	int		draw_end;
 }	t_ray;
 
 typedef struct s_player
 {
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
 	double	time;
 	double	old_time;
 }	t_player;
@@ -144,10 +144,10 @@ typedef struct s_game
 
 	char		**map;
 	char		**map_buffer;
-	int			mapX;
-	int			mapY;
+	int			map_x;
+	int			map_y;
 
-	int         map_height;
+	int			map_height;
 	int			map_width;
 
 	void		*mlx;
@@ -155,7 +155,6 @@ typedef struct s_game
 }	t_game;
 
 // ---> free.c
-
 void	free_path_textures(t_game *game);
 void	free_textures(t_game *game);
 void	ft_freetab(char **tab);
@@ -231,8 +230,8 @@ void	raycaster(t_game *game);
 // ---> maths.c
 
 void	draw_pixel(void *data_addr, int x, int y, int color);
-void	calc_step(t_game *game, t_ray *ray, int *mapX, int *mapY);
-void	dda(t_game *game, t_ray *ray, int *mapX, int *mapY);
+void	calc_step(t_game *game, t_ray *ray, int *map_x, int *map_y);
+void	dda(t_game *game, t_ray *ray, int *map_x, int *map_y);
 
 // ---> player_control.c
 
@@ -257,6 +256,6 @@ char	*select_texture_data(t_game *game, int *bpp, int *sl, int *end);
 void	compute_line_dimensions(t_game *game, t_draw *d);
 void	draw_column(t_game *game, void *img, int x, t_draw *d);
 void	calc_wall_dist(t_game *game);
-void	compute_wallX_and_texX(t_game *game, t_draw *d);
+void	compute_wallx_and_texx(t_game *game, t_draw *d);
 
 #endif

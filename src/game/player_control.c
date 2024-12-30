@@ -5,20 +5,21 @@ void	move_player(t_game *game, double move_speed)
 	double	new_x;
 	double	new_y;
 
-	new_x = game->player.posX + game->player.dirX * move_speed;
-	new_y = game->player.posY + game->player.dirY * move_speed;
-	if ((int)game->player.posY >= 0 && (int)game->player.posY < game->map_height
+	new_x = game->player.pos_x + game->player.dir_x * move_speed;
+	new_y = game->player.pos_y + game->player.dir_y * move_speed;
+	if ((int)game->player.pos_y >= 0
+		&& (int)game->player.pos_y < game->map_height
 		&& (int)new_x >= 0 && (int)new_x < game->map_width
-		&& game->map[(int)game->player.posY][(int)new_x] == '0')
+		&& game->map[(int)game->player.pos_y][(int)new_x] == '0')
 	{
-		game->player.posX = new_x;
+		game->player.pos_x = new_x;
 	}
 	if ((int)new_y >= 0 && (int)new_y < game->map_height
-		&& (int)game->player.posX >= 0
-		&& (int)game->player.posX < game->map_width
-		&& game->map[(int)new_y][(int)game->player.posX] == '0')
+		&& (int)game->player.pos_x >= 0
+		&& (int)game->player.pos_x < game->map_width
+		&& game->map[(int)new_y][(int)game->player.pos_x] == '0')
 	{
-		game->player.posY = new_y;
+		game->player.pos_y = new_y;
 	}
 }
 
@@ -27,14 +28,14 @@ void	strafe_player(t_game *game, double move_speed)
 	double	strafe_x;
 	double	strafe_y;
 
-	strafe_x = game->player.dirY * move_speed;
-	strafe_y = -game->player.dirX * move_speed;
-	if (game->map[(int)game->player.posY]
-		[(int)(game->player.posX + strafe_x)] == '0')
-		game->player.posX += strafe_x;
-	if (game->map[(int)(game->player.posY + strafe_y)]
-		[(int)game->player.posX] == '0')
-		game->player.posY += strafe_y;
+	strafe_x = game->player.dir_y * move_speed;
+	strafe_y = -game->player.dir_x * move_speed;
+	if (game->map[(int)game->player.pos_y]
+		[(int)(game->player.pos_x + strafe_x)] == '0')
+		game->player.pos_x += strafe_x;
+	if (game->map[(int)(game->player.pos_y + strafe_y)]
+		[(int)game->player.pos_x] == '0')
+		game->player.pos_y += strafe_y;
 }
 
 void	rotate_player(t_game *game, double rot_speed)
@@ -42,16 +43,16 @@ void	rotate_player(t_game *game, double rot_speed)
 	double	old_dir_x;
 	double	old_plane_x;
 
-	old_dir_x = game->player.dirX;
-	old_plane_x = game->ray.planeX;
-	game->player.dirX = game->player.dirX * cos(rot_speed)
-		- game->player.dirY * sin(rot_speed);
-	game->player.dirY = old_dir_x * sin(rot_speed)
-		+ game->player.dirY * cos(rot_speed);
-	game->ray.planeX = game->ray.planeX * cos(rot_speed)
-		- game->ray.planeY * sin(rot_speed);
-	game->ray.planeY = old_plane_x * sin(rot_speed)
-		+ game->ray.planeY * cos(rot_speed);
+	old_dir_x = game->player.dir_x;
+	old_plane_x = game->ray.plane_x;
+	game->player.dir_x = game->player.dir_x * cos(rot_speed)
+		- game->player.dir_y * sin(rot_speed);
+	game->player.dir_y = old_dir_x * sin(rot_speed)
+		+ game->player.dir_y * cos(rot_speed);
+	game->ray.plane_x = game->ray.plane_x * cos(rot_speed)
+		- game->ray.plane_y * sin(rot_speed);
+	game->ray.plane_y = old_plane_x * sin(rot_speed)
+		+ game->ray.plane_y * cos(rot_speed);
 }
 
 int	player_controls(int keycode, t_game *game)

@@ -2,34 +2,34 @@
 
 static void	set_north(t_game *game)
 {
-	game->player.dirX = 0;
-	game->player.dirY = -1;
-	game->ray.planeX = 0.66;
-	game->ray.planeY = 0;
+	game->player.dir_x = 0;
+	game->player.dir_y = -1;
+	game->ray.plane_x = 0.66;
+	game->ray.plane_y = 0;
 }
 
 static void	set_south(t_game *game)
 {
-	game->player.dirX = 0;
-	game->player.dirY = 1;
-	game->ray.planeX = -0.66;
-	game->ray.planeY = 0;
+	game->player.dir_x = 0;
+	game->player.dir_y = 1;
+	game->ray.plane_x = -0.66;
+	game->ray.plane_y = 0;
 }
 
 static void	set_east(t_game *game)
 {
-	game->player.dirX = 1;
-	game->player.dirY = 0;
-	game->ray.planeX = 0;
-	game->ray.planeY = 0.66;
+	game->player.dir_x = 1;
+	game->player.dir_y = 0;
+	game->ray.plane_x = 0;
+	game->ray.plane_y = 0.66;
 }
 
 static void	set_west(t_game *game)
 {
-	game->player.dirX = -1;
-	game->player.dirY = 0;
-	game->ray.planeX = 0;
-	game->ray.planeY = -0.66;
+	game->player.dir_x = -1;
+	game->player.dir_y = 0;
+	game->ray.plane_x = 0;
+	game->ray.plane_y = -0.66;
 }
 
 void	set_player_direction(t_game *game, char spawn)

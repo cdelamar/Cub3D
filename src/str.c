@@ -1,8 +1,8 @@
 #include "cub3d.h"
 
-bool first_map_line(char *line)
+bool	first_map_line(char *line)
 {
-	int i;
+	int	i;
 
 	line = skip_spaces(line);
 	i = 0;

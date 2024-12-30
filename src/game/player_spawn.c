@@ -2,13 +2,13 @@
 
 static int	set_spawn(t_game *game, char c, int x, int y)
 {
-	if (game->player.posX != -1)
+	if (game->player.pos_x != -1)
 	{
 		ft_putendl_fd("Error\nMultiple spawn points found\n", 2);
 		return (EXIT_FAILURE);
 	}
-	game->player.posX = x + 0.5;
-	game->player.posY = y + 0.5;
+	game->player.pos_x = x + 0.5;
+	game->player.pos_y = y + 0.5;
 	set_player_direction(game, c);
 	return (EXIT_SUCCESS);
 }
@@ -36,15 +36,15 @@ int	find_player_spawn(t_game *game, char **map)
 	int	y;
 
 	y = 0;
-	game->player.posX = -1;
-	game->player.posY = -1;
+	game->player.pos_x = -1;
+	game->player.pos_y = -1;
 	while (map[y])
 	{
 		if (find_spawn_in_line(game, map[y], y) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		y++;
 	}
-	if (game->player.posX == -1)
+	if (game->player.pos_x == -1)
 	{
 		ft_putendl_fd("Error\nNo spawn point found on the map\n", 2);
 		return (EXIT_FAILURE);
