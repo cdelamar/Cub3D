@@ -26,39 +26,42 @@ static char	*remove_spaces(const char *line)
 	return (new_line);
 }
 
-static int	fill_map_block(t_game *game, char **line, int line_count, int *i)
+static int	process_line(t_game *game, char **line, int *i)
 {
 	char	*trimmed;
 
+	trimmed = remove_spaces(*line);
+	if (!trimmed)
+	{
+		free(*line);
+		return (EXIT_FAILURE);
+	}
+	game->map[*i] = ft_strdup(trimmed);
+	free(trimmed);
+	if (!game->map[*i])
+	{
+		free(*line);
+		return (EXIT_FAILURE);
+	}
+	if (game->map[*i][ft_strlen(game->map[*i]) - 1] == '\n')
+		game->map[*i][ft_strlen(game->map[*i]) - 1] = '\0';
+	(*i)++;
+	free(*line);
+	*line = get_next_line(game->map_fd);
+	return (EXIT_SUCCESS);
+}
+
+static int	fill_map_block(t_game *game, char **line, int line_count, int *i)
+{
 	while (*line && *i < line_count)
 	{
-		/* 1) Strip out spaces: */
-		trimmed = remove_spaces(*line);
-		if (!trimmed)
-		{
-			free(*line);
+		if (process_line(game, line, i) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-		}
-		/* 2) Copy the trimmed line into the map array: */
-		game->map[*i] = ft_strdup(trimmed);
-		free(trimmed);
-		if (!game->map[*i])
-		{
-			free(*line);
-			return (EXIT_FAILURE);
-		}
-		/* 3) Remove trailing '\n' if present: */
-		if (game->map[*i][ft_strlen(game->map[*i]) - 1] == '\n')
-			game->map[*i][ft_strlen(game->map[*i]) - 1] = '\0';
-		(*i)++;
-		free(*line);
-		*line = get_next_line(game->map_fd);
 	}
 	game->map[*i] = NULL;
 	free(*line);
 	return (EXIT_SUCCESS);
 }
-
 
 static int	fill_map(t_game *game, int line_count)
 {
