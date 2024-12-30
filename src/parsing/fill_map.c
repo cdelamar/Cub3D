@@ -1,15 +1,53 @@
 #include "cub3d.h"
 
+static char	*remove_spaces(const char *line)
+{
+	char	*new_line;
+	int		i;
+	int		j;
+
+	if (!line)
+		return (NULL);
+	new_line = malloc(sizeof(char) * (ft_strlen(line) + 1));
+	if (!new_line)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ')
+		{
+			new_line[j] = line[i];
+			j++;
+		}
+		i++;
+	}
+	new_line[j] = '\0';
+	return (new_line);
+}
+
 static int	fill_map_block(t_game *game, char **line, int line_count, int *i)
 {
+	char	*trimmed;
+
 	while (*line && *i < line_count)
 	{
-		game->map[*i] = ft_strdup(*line);
+		/* 1) Strip out spaces: */
+		trimmed = remove_spaces(*line);
+		if (!trimmed)
+		{
+			free(*line);
+			return (EXIT_FAILURE);
+		}
+		/* 2) Copy the trimmed line into the map array: */
+		game->map[*i] = ft_strdup(trimmed);
+		free(trimmed);
 		if (!game->map[*i])
 		{
 			free(*line);
 			return (EXIT_FAILURE);
 		}
+		/* 3) Remove trailing '\n' if present: */
 		if (game->map[*i][ft_strlen(game->map[*i]) - 1] == '\n')
 			game->map[*i][ft_strlen(game->map[*i]) - 1] = '\0';
 		(*i)++;
@@ -20,6 +58,7 @@ static int	fill_map_block(t_game *game, char **line, int line_count, int *i)
 	free(*line);
 	return (EXIT_SUCCESS);
 }
+
 
 static int	fill_map(t_game *game, int line_count)
 {
