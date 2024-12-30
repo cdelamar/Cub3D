@@ -30,7 +30,7 @@ FILES =	main args file init\
 		maths hook raycasting\
 		player_spawn player_control\
 		error direction draw floor_ceiling\
-		color_path
+		color_path fill_map
 
 GAME = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))
 PARS = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))

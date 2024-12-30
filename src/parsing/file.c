@@ -16,7 +16,8 @@ int	check_texture_colors(t_game *game)
 {
 	char	*line;
 
-	while ((line = get_next_line(game->fd)))
+	line = get_next_line(game->fd);
+	while (line)
 	{
 		if (parse_line(line, game) == EXIT_FAILURE)
 		{
@@ -25,12 +26,12 @@ int	check_texture_colors(t_game *game)
 			return (false);
 		}
 		free(line);
+		line = get_next_line(game->fd);
 	}
 	if (check_texture(game) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (check_color(game) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	free(line);
 	return (EXIT_SUCCESS);
 }
 

@@ -202,6 +202,7 @@ bool	parse_file(char *file_name, t_game *game);
 bool	first_map_line(char *line);
 int		parse_map(t_game *game, char *file_name);
 int		check_map(t_game *game, char *file_name);
+int		count_map_lines(int fd);
 
 // ---> texture.c
 int		check_texture_files(t_textures *textures);

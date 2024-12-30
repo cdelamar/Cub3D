@@ -57,7 +57,7 @@ int	count_map_lines(int fd)
 	return (line_count);
 }
 
-int	parse_map(t_game *game, char *file_name)
+/*int	parse_map(t_game *game, char *file_name)
 {
 	char	*line;
 	int		map_fd_copy;
@@ -100,7 +100,7 @@ int	parse_map(t_game *game, char *file_name)
 	}
 	ft_putendl_fd("Error\n Proper map unsettled\n", 2);
 	return (EXIT_FAILURE);
-}
+}*/
 
 int	check_map(t_game *game, char *file_name)
 {
