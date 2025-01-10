@@ -62,10 +62,7 @@ int	check_map(t_game *game, char *file_name)
 	if (parse_map(game, file_name) == -1)
 		return (EXIT_FAILURE);
 	compute_map_dimensions(game);
-	if (check_map_borders(game) == EXIT_FAILURE)
-	{
-		ft_putendl_fd("Error\nMap borders are not all '1'.", 2);
+	if (map_is_closed(game) == 0)
 		return (EXIT_FAILURE);
-	}
 	return (EXIT_SUCCESS);
 }

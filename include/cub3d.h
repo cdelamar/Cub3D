@@ -57,13 +57,28 @@
 # define ARROW_LEFT  			65361
 # define ARROW_RIGHT 			65363
 
+# define WALL_SUCCESS			1
+# define WALL_FAILURE			-1
+# define WALL_KEEP_SEARCH		0
+
 # define KEY_Q					113
 # define KEY_ESCAPE  			65307
 # define DESTROY_NOTIFY			17
 
+# define CAPACITY				128
+
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE		5
 # endif
+
+typedef struct s_queue
+{
+	int	*queue_y;
+	int	*queue_x;
+	int	front;
+	int	back;
+	int	capacity;
+}	t_queue;
 
 typedef struct s_textures
 {
@@ -152,6 +167,11 @@ typedef struct s_game
 
 	void		*mlx;
 	void		*win;
+
+	int			**visited;
+	int			bfs_y;
+	int			bfs_x;
+	t_queue		*queue;
 }	t_game;
 
 // ---> free.c
@@ -170,6 +190,7 @@ void	init_player(t_player *player);
 void	init_ray(t_ray *ray);
 
 // ---> str.c
+bool	first_map_line(char *line);
 char	*copy_gnl_line(char *line);
 int		rev_strncmp(char *s1, char *s2, size_t n);
 void	print_int_array(int *array, int size);
@@ -199,12 +220,14 @@ int		parse_line(char *line, t_game *game);
 bool	parse_file(char *file_name, t_game *game);
 
 // ---> map.c
-bool	first_map_line(char *line);
 int		parse_map(t_game *game, char *file_name);
 int		check_map(t_game *game, char *file_name);
+void	compute_map_dimensions(t_game *game);
 int		count_map_lines(int fd);
+int		check_map_borders(t_game *game);
 
 // ---> texture.c
+
 int		check_texture_files(t_textures *textures);
 int		check_texture(t_game *game);
 int		path_texture(char *line, char **texture);
@@ -258,5 +281,39 @@ void	compute_line_dimensions(t_game *game, t_draw *d);
 void	draw_column(t_game *game, void *img, int x, t_draw *d);
 void	calc_wall_dist(t_game *game);
 void	compute_wallx_and_texx(t_game *game, t_draw *d);
+
+// ---> bfs.c
+
+int		init_bfs(t_game *game);
+void	cleanup_bfs(t_game *game);
+int		map_is_closed(t_game *game);
+
+// ---> flood.c
+
+int		is_open_cell(t_game *game, char **bigmap);
+int		flood_from_outside(t_game *game, char **bigmap);
+int		process_next_node(t_game *game, char **bigmap);
+void	explore_neighbors(t_game *game, char **bigmap);
+
+// ---> bigmap.c
+
+char	**build_bigmap(t_game *game);
+int		**init_visited_bigmap(t_game *game);
+void	free_visited_bigmap(int **visited, t_game *game);
+void	copy_map_into_bigmap(t_game *game, char **bigmap);
+
+// ---> bigmap_init.c
+
+char	*allocate_bigmap_row(int width);
+char	**allocate_bigmap_memory(int total_height);
+void	copy_map_into_bigmap(t_game *game, char **bigmap);
+
+// ---> push_pop.c
+
+t_queue	*init_queue(void);
+int		expand_queue(t_queue *q);
+void	push_queue(t_queue *q, int y, int x);
+int		pop_queue(t_queue *q, int *y, int *x);
+void	free_queue(t_queue *q);
 
 #endif
