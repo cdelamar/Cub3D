@@ -60,7 +60,10 @@ int	count_map_lines(int fd)
 int	check_map(t_game *game, char *file_name)
 {
 	if (parse_map(game, file_name) == EXIT_FAILURE)
+	{
+		printf("c'est l'echec\n");
 		return (EXIT_FAILURE);
+	}
 	compute_map_dimensions(game);
 	if (map_is_closed(game) == 0)
 	{

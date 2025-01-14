@@ -35,21 +35,28 @@ int	check_texture_colors(t_game *game)
 	return (EXIT_SUCCESS);
 }
 
+
 bool	parse_file(char *file_name, t_game *game)
 {
 	game->fd = open(file_name, O_RDONLY);
 	if (check_texture_colors(game) == EXIT_FAILURE)
 	{
+		flush_gnl(game->fd);
 		close(game->fd);
 		return (false);
 	}
-	close (game->fd);
+	flush_gnl(game->fd);
+	close(game->fd);
+
 	game->map_fd = open(file_name, O_RDONLY);
 	if (check_map(game, file_name) == EXIT_FAILURE)
 	{
+		flush_gnl(game->map_fd);
 		close(game->map_fd);
 		return (false);
 	}
+	flush_gnl(game->map_fd);
 	close(game->map_fd);
+
 	return (true);
 }

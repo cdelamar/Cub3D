@@ -1,5 +1,16 @@
 #include "cub3d.h"
 
+void	flush_gnl(int fd)
+{
+	char	*tmp;
+
+	while ((tmp = get_next_line(fd)) != NULL)
+	{
+		free(tmp);
+	}
+}
+
+
 static char	*function_name(int fd, char *buf, char *backup)
 {
 	int		read_line;

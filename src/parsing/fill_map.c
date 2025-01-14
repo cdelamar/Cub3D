@@ -100,28 +100,39 @@ static int	fill_map(t_game *game, int line_count)
 		{
 			if (fill_map_block(game, &line, line_count, &i) == EXIT_SUCCESS)
 				return (EXIT_SUCCESS);
-			return (EXIT_FAILURE);
+			else
+			{
+				printf("je passe ici\n\n");
+				return (EXIT_FAILURE);
+			}
 		}
 		free(line);
 		line = get_next_line(game->map_fd);
 	}
+	printf("sortie de loop\n");
 	return (EXIT_FAILURE);
 }
 
 int	parse_map(t_game *game, char *file_name)
 {
-	int		map_fd_copy;
-	int		line_count;
+	int	map_fd_copy;
+	int	line_count;
+	int	i;
 
 	map_fd_copy = open(file_name, O_RDONLY);
 	if (map_fd_copy < 0)
 		return (EXIT_FAILURE);
 	line_count = count_map_lines(map_fd_copy);
 	close(map_fd_copy);
-
 	game->map = malloc(sizeof(char *) * (line_count + 1));
 	if (!game->map)
 		return (EXIT_FAILURE);
+	i = 0;
+	while (i <= line_count)
+	{
+		game->map[i] = NULL;
+		i++;
+	}
 	if (fill_map(game, line_count) == EXIT_SUCCESS)
 		return (EXIT_SUCCESS);
 	else
@@ -130,4 +141,3 @@ int	parse_map(t_game *game, char *file_name)
 		return (EXIT_FAILURE);
 	}
 }
-

@@ -182,6 +182,7 @@ void	*ft_realloc(void *ptr, size_t new_size);
 void	free_game(t_game *game);
 
 // ---> gnl.c
+void	flush_gnl(int fd);
 char	*get_next_line(int fd);
 
 // ---> init.c
