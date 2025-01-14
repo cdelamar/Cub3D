@@ -35,7 +35,7 @@ int	map_is_closed(t_game *game)
 	copy_map_into_bigmap(game, bigmap);
 	closed = flood_from_outside(game, bigmap);
 	if (!closed)
-		ft_putendl_fd("Error\nMap is not closed.", 2);
+		return(0);
 	{
 		i = 0;
 		while (bigmap[i])

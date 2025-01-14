@@ -1,5 +1,12 @@
 #include "cub3d.h"
 
+bool is_valid_map_char(char c)
+{
+    return (c == '0' || c == '1'
+         || c == 'N' || c == 'S'
+         || c == 'E' || c == 'W' || c== '\n');
+}
+
 static char	*remove_spaces(const char *line)
 {
 	char	*new_line;
@@ -29,12 +36,25 @@ static char	*remove_spaces(const char *line)
 static int	process_line(t_game *game, char **line, int *i)
 {
 	char	*trimmed;
+	int		j;
 
 	trimmed = remove_spaces(*line);
 	if (!trimmed)
 	{
 		free(*line);
 		return (EXIT_FAILURE);
+	}
+
+	j = 0;
+	while (trimmed[j])
+	{
+		if (!is_valid_map_char(trimmed[j]))
+		{
+			free(trimmed);
+			free(*line);
+			return (EXIT_FAILURE);
+		}
+		j++;
 	}
 	game->map[*i] = ft_strdup(trimmed);
 	free(trimmed);
@@ -43,13 +63,16 @@ static int	process_line(t_game *game, char **line, int *i)
 		free(*line);
 		return (EXIT_FAILURE);
 	}
+
 	if (game->map[*i][ft_strlen(game->map[*i]) - 1] == '\n')
 		game->map[*i][ft_strlen(game->map[*i]) - 1] = '\0';
+
 	(*i)++;
 	free(*line);
 	*line = get_next_line(game->map_fd);
 	return (EXIT_SUCCESS);
 }
+
 
 static int	fill_map_block(t_game *game, char **line, int line_count, int *i)
 {
@@ -95,11 +118,16 @@ int	parse_map(t_game *game, char *file_name)
 		return (EXIT_FAILURE);
 	line_count = count_map_lines(map_fd_copy);
 	close(map_fd_copy);
+
 	game->map = malloc(sizeof(char *) * (line_count + 1));
 	if (!game->map)
 		return (EXIT_FAILURE);
 	if (fill_map(game, line_count) == EXIT_SUCCESS)
 		return (EXIT_SUCCESS);
-	ft_putendl_fd("Error\n Proper map unsettled\n", 2);
-	return (EXIT_FAILURE);
+	else
+	{
+		ft_putendl_fd("Error\nMap unsettled (invalid characters or bad format).", 2);
+		return (EXIT_FAILURE);
+	}
 }
+
