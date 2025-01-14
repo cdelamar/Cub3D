@@ -20,8 +20,6 @@ void	cleanup_bfs(t_game *game)
 	free_queue(game->queue);
 }
 
-
-
 int	map_is_closed(t_game *game)
 {
 	char	**bigmap;
@@ -35,9 +33,7 @@ int	map_is_closed(t_game *game)
 		return (0);
 	}
 	copy_map_into_bigmap(game, bigmap);
-
 	closed = flood_from_outside(game, bigmap);
-
 	i = 0;
 	while (bigmap[i])
 	{
@@ -45,7 +41,5 @@ int	map_is_closed(t_game *game)
 		i++;
 	}
 	free(bigmap);
-
 	return (closed);
 }
-

@@ -1,13 +1,6 @@
 #include "cub3d.h"
 
-bool is_valid_map_char(char c)
-{
-    return (c == '0' || c == '1'
-         || c == 'N' || c == 'S'
-         || c == 'E' || c == 'W' || c== '\n');
-}
-
-static char	*remove_spaces(const char *line)
+char	*remove_spaces(const char *line)
 {
 	char	*new_line;
 	int		i;
@@ -33,48 +26,7 @@ static char	*remove_spaces(const char *line)
 	return (new_line);
 }
 
-static int	process_line(t_game *game, char **line, int *i)
-{
-	char	*trimmed;
-	int		j;
-
-	trimmed = remove_spaces(*line);
-	if (!trimmed)
-	{
-		free(*line);
-		return (EXIT_FAILURE);
-	}
-
-	j = 0;
-	while (trimmed[j])
-	{
-		if (!is_valid_map_char(trimmed[j]))
-		{
-			free(trimmed);
-			free(*line);
-			return (EXIT_FAILURE);
-		}
-		j++;
-	}
-	game->map[*i] = ft_strdup(trimmed);
-	free(trimmed);
-	if (!game->map[*i])
-	{
-		free(*line);
-		return (EXIT_FAILURE);
-	}
-
-	if (game->map[*i][ft_strlen(game->map[*i]) - 1] == '\n')
-		game->map[*i][ft_strlen(game->map[*i]) - 1] = '\0';
-
-	(*i)++;
-	free(*line);
-	*line = get_next_line(game->map_fd);
-	return (EXIT_SUCCESS);
-}
-
-
-static int	fill_map_block(t_game *game, char **line, int line_count, int *i)
+int	fill_map_block(t_game *game, char **line, int line_count, int *i)
 {
 	while (*line && *i < line_count)
 	{
@@ -86,7 +38,7 @@ static int	fill_map_block(t_game *game, char **line, int line_count, int *i)
 	return (EXIT_SUCCESS);
 }
 
-static int	fill_map(t_game *game, int line_count)
+int	fill_map(t_game *game, int line_count)
 {
 	char	*line;
 	int		i;
@@ -101,15 +53,11 @@ static int	fill_map(t_game *game, int line_count)
 			if (fill_map_block(game, &line, line_count, &i) == EXIT_SUCCESS)
 				return (EXIT_SUCCESS);
 			else
-			{
-				printf("je passe ici\n\n");
 				return (EXIT_FAILURE);
-			}
 		}
 		free(line);
 		line = get_next_line(game->map_fd);
 	}
-	printf("sortie de loop\n");
 	return (EXIT_FAILURE);
 }
 
@@ -137,7 +85,7 @@ int	parse_map(t_game *game, char *file_name)
 		return (EXIT_SUCCESS);
 	else
 	{
-		ft_putendl_fd("Error\nMap unsettled (invalid characters or bad format).", 2);
+		ft_putendl_fd(MAP_FORMAT_CHAR, 2);
 		return (EXIT_FAILURE);
 	}
 }

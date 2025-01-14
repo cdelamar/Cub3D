@@ -4,12 +4,13 @@ void	flush_gnl(int fd)
 {
 	char	*tmp;
 
-	while ((tmp = get_next_line(fd)) != NULL)
+	tmp = get_next_line(fd);
+	while (tmp != NULL)
 	{
 		free(tmp);
+		tmp = get_next_line(fd);
 	}
 }
-
 
 static char	*function_name(int fd, char *buf, char *backup)
 {

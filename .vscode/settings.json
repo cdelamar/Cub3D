@@ -4,6 +4,7 @@
 		"string": "c",
 		"unordered_map": "c",
 		"string_view": "c",
-		"cub3d.h": "c"
+		"cub3d.h": "c",
+		"cstdlib": "c"
 	}
 }

@@ -1,5 +1,12 @@
 #include "cub3d.h"
 
+bool	is_valid_map_char(char c)
+{
+	return (c == '0' || c == '1'
+		|| c == 'N' || c == 'S'
+		|| c == 'E' || c == 'W' || c == '\n');
+}
+
 int	check_map_borders(t_game *game)
 {
 	int	i;
@@ -60,10 +67,7 @@ int	count_map_lines(int fd)
 int	check_map(t_game *game, char *file_name)
 {
 	if (parse_map(game, file_name) == EXIT_FAILURE)
-	{
-		printf("c'est l'echec\n");
 		return (EXIT_FAILURE);
-	}
 	compute_map_dimensions(game);
 	if (map_is_closed(game) == 0)
 	{
@@ -72,4 +76,3 @@ int	check_map(t_game *game, char *file_name)
 	}
 	return (EXIT_SUCCESS);
 }
-

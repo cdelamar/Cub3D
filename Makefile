@@ -32,7 +32,7 @@ FILES =	main args file init\
 		error direction draw floor_ceiling\
 		color_path fill_map bfs bigmap\
 		push_pop flood flood_explore\
-		bigmap_init
+		bigmap_init process_line
 
 GAME = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))
 PARS = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))

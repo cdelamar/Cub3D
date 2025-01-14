@@ -45,6 +45,7 @@
 # define MAP_NOT_CLOSED  		"Error\nMap is not closed"
 # define MAP_IS_EMPTY    		"Error\nMap is empty"
 # define FD_ERROR        		"Error\nCannot open the file"
+# define MAP_FORMAT_CHAR		"Error\nInvalid character/Map format"
 
 # define SCREEN_WIDTH			1640
 # define SCREEN_HEIGHT			800
@@ -174,6 +175,12 @@ typedef struct s_game
 	t_queue		*queue;
 }	t_game;
 
+// ---> fil_map.c
+
+char	*remove_spaces(const char *line);
+int		fill_map_block(t_game *game, char **line, int line_count, int *i);
+int		fill_map(t_game *game, int line_count);
+
 // ---> free.c
 void	free_path_textures(t_game *game);
 void	free_textures(t_game *game);
@@ -226,6 +233,7 @@ int		check_map(t_game *game, char *file_name);
 void	compute_map_dimensions(t_game *game);
 int		count_map_lines(int fd);
 int		check_map_borders(t_game *game);
+bool	is_valid_map_char(char c);
 
 // ---> texture.c
 
@@ -316,5 +324,11 @@ int		expand_queue(t_queue *q);
 void	push_queue(t_queue *q, int y, int x);
 int		pop_queue(t_queue *q, int *y, int *x);
 void	free_queue(t_queue *q);
+
+// process_line
+
+int		validate_line(char *trimmed, char *line);
+int		handle_map_error(char **line, char *trimmed);
+int		process_line(t_game *game, char **line, int *i);
 
 #endif
