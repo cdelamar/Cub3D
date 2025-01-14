@@ -64,7 +64,7 @@ int	check_map(t_game *game, char *file_name)
 	compute_map_dimensions(game);
 	if (map_is_closed(game) == 0)
 	{
-		ft_putendl_fd("Error\nMap is not closed 01.", 2);
+		ft_putendl_fd("Error\nMap is not closed.", 2);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

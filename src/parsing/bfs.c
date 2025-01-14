@@ -20,7 +20,7 @@ void	cleanup_bfs(t_game *game)
 	free_queue(game->queue);
 }
 
-int	map_is_closed(t_game *game)
+/*int	map_is_closed(t_game *game)
 {
 	char	**bigmap;
 	int		closed;
@@ -46,4 +46,34 @@ int	map_is_closed(t_game *game)
 		free(bigmap);
 	}
 	return (closed);
+}*/
+
+int	map_is_closed(t_game *game)
+{
+	char	**bigmap;
+	int		closed;
+	int		i;
+
+	bigmap = build_bigmap(game);
+	if (!bigmap)
+	{
+		ft_putendl_fd("Error\nMemory allocation bigmap", 2);
+		return (0);
+	}
+	copy_map_into_bigmap(game, bigmap);
+
+	closed = flood_from_outside(game, bigmap);
+
+	// Libération SYSTÉMATIQUE de la bigmap
+	i = 0;
+	while (bigmap[i])
+	{
+		free(bigmap[i]);
+		i++;
+	}
+	free(bigmap);
+
+	// On retourne la valeur de closed
+	return (closed);
 }
+
