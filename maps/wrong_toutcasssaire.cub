@@ -1,0 +1,11 @@
+NO ./ressources/north.xpm
+WE ./ressources/west.xpm
+EA ./ressources/east.xpm
+SO ./ressources/south.xpmmmmm
+F 34,199,255
+C 100,90,250
+
+1111111111111
+1000E00000011
+1111111111111
+111111111111
