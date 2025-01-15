@@ -20,21 +20,26 @@ void	cleanup_bfs(t_game *game)
 	free_queue(game->queue);
 }
 
-int	map_is_closed(t_game *game)
+bool	map_is_closed(t_game *game)
 {
 	char	**bigmap;
 	int		closed;
 	int		i;
 
+	closed = 1;
+	i = 0;
 	bigmap = build_bigmap(game);
 	if (!bigmap)
 	{
 		ft_putendl_fd("Error\nMemory allocation bigmap", 2);
-		return (0);
+		free(bigmap);
+		return (false);
 	}
 	copy_map_into_bigmap(game, bigmap);
-	closed = flood_from_outside(game, bigmap);
-	i = 0;
+	if (find_player_spawn(game, game->map) == EXIT_FAILURE)
+		error_pos(game, bigmap);
+	closed = is_closed(bigmap, game->player.pos_y, game->player.pos_x);
+	printf("closed vaut %d\n", closed);
 	while (bigmap[i])
 	{
 		free(bigmap[i]);

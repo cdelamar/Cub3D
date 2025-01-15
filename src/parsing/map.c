@@ -39,6 +39,7 @@ void	compute_map_dimensions(t_game *game)
 		i++;
 	}
 	game->map_height = i;
+	printf("le nombre de ligne est %d\n", game->map_height);
 }
 
 int	count_map_lines(int fd)
@@ -76,7 +77,7 @@ int	check_map(t_game *game, char *file_name)
 	if (parse_map(game, file_name) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	compute_map_dimensions(game);
-	if (map_is_closed(game) == 0)
+	if (map_is_closed(game) == false)
 	{
 		ft_putendl_fd("Error\nMap is not closed.", 2);
 		return (EXIT_FAILURE);
