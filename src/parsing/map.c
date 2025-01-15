@@ -64,6 +64,20 @@ int	count_map_lines(int fd)
 	return (line_count);
 }
 
+bool	is_valid_map_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (!is_valid_map_char(line[i]) && line[i] != ' ')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 int	check_map(t_game *game, char *file_name)
 {
 	if (parse_map(game, file_name) == EXIT_FAILURE)

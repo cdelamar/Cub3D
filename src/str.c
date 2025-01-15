@@ -6,9 +6,11 @@ bool	first_map_line(char *line)
 
 	line = skip_spaces(line);
 	i = 0;
-	while (line [i] && line[i] != '\n')
+	if (line[i] == '\0')
+		return (false);
+	while (line[i] && line[i] != '\n')
 	{
-		if (line[i] != '1')
+		if (line[i] != '1' && line[i] != '0' && !is_valid_map_char(line[i]))
 			return (false);
 		i++;
 	}
