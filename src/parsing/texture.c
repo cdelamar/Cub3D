@@ -35,6 +35,10 @@ int	check_texture(t_game *game)
 	}
 	if (check_texture_files(&game->textures) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	// je crois
+	if (valid_texture_file(&game->textures) == false)
+		return (EXIT_FAILURE);
+	// pas sur
 	return (EXIT_SUCCESS);
 }
 

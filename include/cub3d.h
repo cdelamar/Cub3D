@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:51:42 by cdelamar          #+#    #+#             */
-/*   Updated: 2024/05/13 17:19:23 by cdelamar         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:07:54 by cdelamar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,8 @@ typedef struct s_game
 char	*remove_spaces(const char *line);
 int		fill_map_block(t_game *game, char **line, int line_count, int *i);
 int		fill_map(t_game *game, int line_count);
+bool	valid_texture_file(t_textures *textures);
+
 
 // ---> free.c
 void	free_path_textures(t_game *game);

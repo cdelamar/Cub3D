@@ -1,5 +1,30 @@
 #include "cub3d.h"
 
+bool valid_texture_file(t_textures *textures)
+{
+	if (rev_strncmp(textures->north, ".xpm", 4))
+	{
+		ft_putendl_fd("Error\nInvalid file for north texture", 2);
+		return (false);
+	}
+	if (rev_strncmp(textures->south, ".xpm", 4))
+	{
+		ft_putendl_fd("Error\nInvalid file for south texture", 2);
+		return (false);
+	}
+	if (rev_strncmp(textures->west, ".xpm", 4))
+	{
+		ft_putendl_fd("Error\nInvalid file for west texture", 2);
+		return (false);
+	}
+	if (rev_strncmp(textures->east, ".xpm", 4))
+	{
+		ft_putendl_fd("Error\nInvalid file for east texture", 2);
+		return (false);
+	}
+	return (true);
+}
+
 bool	file_exists(char *filename)
 {
 	int		fd;
