@@ -11,6 +11,22 @@ void	error_free(t_game *game)
 	exit(0);
 }
 
+void	error_pos(t_game *game, char **bigmap)
+{
+	int	y;
+
+	y = 0;
+	free_game(game);
+	while (bigmap[y])
+	{
+		free(bigmap[y]);
+		y++;
+	}
+	free(bigmap);
+	free(game);
+	exit(0);
+}
+
 void	error_mlx(t_game *game)
 {
 	ft_putendl_fd("Error\nMiniLibX initialization failed", 2);

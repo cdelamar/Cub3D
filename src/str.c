@@ -4,14 +4,14 @@ bool	is_valid_map_char(char c)
 {
 	return (c == '0' || c == '1'
 		|| c == 'N' || c == 'S'
-		|| c == 'E' || c == 'W' || c == '\n');
+		|| c == 'E' || c == 'W' || c == '\n' 
+		|| c == ' ' || c == '\t');
 }
 
 bool	first_map_line(char *line)
 {
 	int	i;
 
-	line = skip_spaces(line);
 	i = 0;
 	if (line[i] == '\0')
 		return (false);

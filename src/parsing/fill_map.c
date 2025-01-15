@@ -48,7 +48,7 @@ int	fill_map(t_game *game, int line_count)
 	while (line)
 	{
 		if (!is_empty_line(line)
-			&& first_map_line(skip_spaces(line)))
+			&& first_map_line(line))
 		{
 			if (fill_map_block(game, &line, line_count, &i) == EXIT_SUCCESS)
 				return (EXIT_SUCCESS);

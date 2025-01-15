@@ -29,7 +29,7 @@ int	process_line(t_game *game, char **line, int *i)
 {
 	char	*trimmed;
 
-	trimmed = remove_spaces(*line);
+	trimmed = *line;
 	if (!trimmed)
 		return (handle_map_error(line, trimmed));
 	if (validate_line(trimmed, *line) == EXIT_FAILURE)
@@ -41,7 +41,7 @@ int	process_line(t_game *game, char **line, int *i)
 		game->map[*i][ft_strlen(game->map[*i]) - 1] = '\0';
 	(*i)++;
 	free(trimmed);
-	free(*line);
+	//free(*line);
 	*line = get_next_line(game->map_fd);
 	return (EXIT_SUCCESS);
 }

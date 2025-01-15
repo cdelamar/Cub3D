@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:51:42 by cdelamar          #+#    #+#             */
-/*   Updated: 2025/01/15 16:07:54 by cdelamar         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:25:06 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,7 @@ void	compute_map_dimensions(t_game *game);
 int		count_map_lines(int fd);
 int		check_map_borders(t_game *game);
 bool	is_valid_map_char(char c);
+bool	is_closed(char **bigmap, int x, int y);
 
 // ---> texture.c
 
@@ -280,6 +281,7 @@ int		player_controls(int keycode, t_game *game);
 void	error_free(t_game *game);
 void	error_mlx(t_game *game);
 void	error_win(t_game *game);
+void	error_pos(t_game *game, char **bigmap);
 
 // ---> direction.c
 
@@ -297,14 +299,7 @@ void	compute_wallx_and_texx(t_game *game, t_draw *d);
 
 int		init_bfs(t_game *game);
 void	cleanup_bfs(t_game *game);
-int		map_is_closed(t_game *game);
-
-// ---> flood.c
-
-int		is_open_cell(t_game *game, char **bigmap);
-int		flood_from_outside(t_game *game, char **bigmap);
-int		process_next_node(t_game *game, char **bigmap);
-void	explore_neighbors(t_game *game, char **bigmap);
+bool	map_is_closed(t_game *game);
 
 // ---> bigmap.c
 
