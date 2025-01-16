@@ -39,7 +39,6 @@ void	compute_map_dimensions(t_game *game)
 		i++;
 	}
 	game->map_height = i;
-	printf("le nombre de ligne est %d\n", game->map_height);
 }
 
 int	count_map_lines(int fd)

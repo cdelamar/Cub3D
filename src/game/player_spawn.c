@@ -44,7 +44,6 @@ int	find_player_spawn(t_game *game, char **map)
 			return (EXIT_FAILURE);
 		y++;
 	}
-	printf("les coordonnees de y, x sont %f %f attend : %c\n", game->player.pos_y, game->player.pos_x, map[(int)game->player.pos_y][(int)game->player.pos_x]);
 	if (game->player.pos_x == -1)
 	{
 		ft_putendl_fd("Error\nNo spawn point found on the map\n", 2);
