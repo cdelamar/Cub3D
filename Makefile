@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+         #
+#    By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/10 21:54:20 by cdelamar          #+#    #+#              #
-#    Updated: 2024/05/13 17:12:30 by cdelamar         ###   ########.fr        #
+#    Updated: 2025/01/16 19:22:34 by lgalloux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,7 @@ FILES =	main args file init\
 		player_spawn player_control\
 		error direction draw floor_ceiling\
 		color_path fill_map bfs bigmap\
-		push_pop flood flood_explore\
-		bigmap_init process_line
+		flood bigmap_init process_line\
 
 GAME = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))
 PARS = $(addprefix $(PAR_DIR), $(addsuffix .c, $(FILES)))

@@ -13,20 +13,6 @@ void	print_map(char **map)
 	write(1, "\n", 1);
 }
 
-int	init_bfs(t_game *game)
-{
-	game->visited = init_visited_bigmap(game);
-	if (!game->visited)
-		return (0);
-	game->queue = init_queue();
-	if (!game->queue)
-	{
-		free_visited_bigmap(game->visited, game);
-		return (0);
-	}
-	return (1);
-}
-
 bool	map_is_closed(t_game *game)
 {
 	char	**bigmap;

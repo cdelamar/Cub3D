@@ -21,36 +21,3 @@ char	**build_bigmap(t_game *game)
 	return (bigmap);
 }
 
-int	**init_visited_bigmap(t_game *game)
-{
-	int	**visited;
-	int	y;
-	int	width;
-
-	visited = malloc(sizeof(int *) * (game->map_height + 2));
-	if (!visited)
-		return (NULL);
-	y = 0;
-	while (y < game->map_height + 2)
-	{
-		width = game->map_width + 2;
-		visited[y] = ft_calloc(width, sizeof(int));
-		if (!visited[y])
-			return (NULL);
-		y++;
-	}
-	return (visited);
-}
-
-void	free_visited_bigmap(int **visited, t_game *game)
-{
-	int	y;
-
-	y = 0;
-	while (y < game->map_height + 2)
-	{
-		free (visited[y]);
-		y++;
-	}
-	free (visited);
-}
