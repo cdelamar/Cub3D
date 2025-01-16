@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:51:42 by cdelamar          #+#    #+#             */
-/*   Updated: 2025/01/16 18:47:21 by lgalloux         ###   ########.fr       */
+/*   Updated: 2025/01/16 19:26:15 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,6 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE		5
 # endif
-
-typedef struct s_queue
-{
-	int	*queue_y;
-	int	*queue_x;
-	int	front;
-	int	back;
-	int	capacity;
-}	t_queue;
 
 typedef struct s_textures
 {
@@ -172,7 +163,6 @@ typedef struct s_game
 	int			**visited;
 	int			bfs_y;
 	int			bfs_x;
-	t_queue		*queue;
 }	t_game;
 
 // ---> fil_map.c
@@ -313,14 +303,6 @@ void	copy_map_into_bigmap(t_game *game, char **bigmap);
 char	*allocate_bigmap_row(int width);
 char	**allocate_bigmap_memory(int total_height);
 void	copy_map_into_bigmap(t_game *game, char **bigmap);
-
-// ---> push_pop.c
-
-t_queue	*init_queue(void);
-int		expand_queue(t_queue *q);
-void	push_queue(t_queue *q, int y, int x);
-int		pop_queue(t_queue *q, int *y, int *x);
-void	free_queue(t_queue *q);
 
 // process_line
 
