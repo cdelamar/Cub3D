@@ -1,5 +1,18 @@
 #include "cub3d.h"
 
+void	print_map(char **map)
+{
+	int	y;
+
+	y = 0;
+	while (map[y])
+	{
+		printf("%s\n", map[y]);
+		y++;
+	}
+	write(1, "\n", 1);
+}
+
 int	init_bfs(t_game *game)
 {
 	game->visited = init_visited_bigmap(game);
@@ -12,12 +25,6 @@ int	init_bfs(t_game *game)
 		return (0);
 	}
 	return (1);
-}
-
-void	cleanup_bfs(t_game *game)
-{
-	free_visited_bigmap(game->visited, game);
-	free_queue(game->queue);
 }
 
 bool	map_is_closed(t_game *game)
@@ -36,10 +43,11 @@ bool	map_is_closed(t_game *game)
 		return (false);
 	}
 	copy_map_into_bigmap(game, bigmap);
-	if (find_player_spawn(game, game->map) == EXIT_FAILURE)
+	// print_map(bigmap);
+	if (find_player_spawn(game, bigmap) == EXIT_FAILURE)
 		error_pos(game, bigmap);
-	closed = is_closed(bigmap, game->player.pos_y, game->player.pos_x);
-	printf("closed vaut %d\n", closed);
+	// print_map(bigmap);
+	closed = is_closed(bigmap, game->player.pos_y, game->player.pos_x, 0);
 	while (bigmap[i])
 	{
 		free(bigmap[i]);

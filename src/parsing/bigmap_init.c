@@ -45,9 +45,6 @@ void	copy_map_into_bigmap(t_game *game, char **bigmap)
 			bigmap[y_map + 1][x_map + 1] = game->map[y_map][x_map];
 			x_map++;
 		}
-		printf("%s\n", bigmap[y_map]);
 		y_map++;
 	}
-	printf("%s\n", bigmap[y_map]);
-	printf("%s\n", bigmap[y_map + 1]);
 }

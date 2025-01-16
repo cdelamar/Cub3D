@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:51:42 by cdelamar          #+#    #+#             */
-/*   Updated: 2025/01/15 20:25:06 by lgalloux         ###   ########.fr       */
+/*   Updated: 2025/01/16 18:47:21 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,7 @@ void	compute_map_dimensions(t_game *game);
 int		count_map_lines(int fd);
 int		check_map_borders(t_game *game);
 bool	is_valid_map_char(char c);
-bool	is_closed(char **bigmap, int x, int y);
+bool	is_closed(char **bigmap, int x, int y, int depth);
 
 // ---> texture.c
 
@@ -298,7 +298,7 @@ void	compute_wallx_and_texx(t_game *game, t_draw *d);
 // ---> bfs.c
 
 int		init_bfs(t_game *game);
-void	cleanup_bfs(t_game *game);
+void	print_map(char **map);
 bool	map_is_closed(t_game *game);
 
 // ---> bigmap.c
@@ -324,8 +324,7 @@ void	free_queue(t_queue *q);
 
 // process_line
 
-int		validate_line(char *trimmed, char *line);
-int		handle_map_error(char **line, char *trimmed);
+int		validate_line(char *line);
 int		process_line(t_game *game, char **line, int *i);
 
 #endif
