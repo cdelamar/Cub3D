@@ -38,6 +38,24 @@ int	fill_map_block(t_game *game, char **line, int line_count, int *i)
 	return (EXIT_SUCCESS);
 }
 
+static bool	is_texture_or_color(char *line)
+{
+	if (!ft_strncmp(line, "NO ", 3))
+		return (true);
+	else if (!ft_strncmp(line, "SO ", 3))
+		return (true);
+	else if (!ft_strncmp(line, "EA ", 3))
+		return (true); 
+	else if (!ft_strncmp(line, "WE ", 3))
+		return (true);
+	else if (!ft_strncmp(line, "F ", 2))
+		return (true);
+	else if (!ft_strncmp(line, "C ", 2))
+		return (true);
+	else
+		return (false);
+}
+
 int	fill_map(t_game *game, int line_count)
 {
 	char	*line;
@@ -47,13 +65,18 @@ int	fill_map(t_game *game, int line_count)
 	line = get_next_line(game->map_fd);
 	while (line)
 	{
-		if (!is_empty_line(line)
-			&& first_map_line(line))
+		if (!is_empty_line(line) && first_map_line(line))
 		{
 			if (fill_map_block(game, &line, line_count, &i) == EXIT_SUCCESS)
 				return (EXIT_SUCCESS);
 			else
 				return (EXIT_FAILURE);
+		}
+		else if (!is_empty_line(line) && !is_texture_or_color(line)
+			&& !is_valid_map_line(line))
+		{
+			free(line);
+			return (EXIT_FAILURE);
 		}
 		free(line);
 		line = get_next_line(game->map_fd);

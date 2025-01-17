@@ -17,7 +17,7 @@ bool	first_map_line(char *line)
 		return (false);
 	while (line[i] && line[i] != '\n')
 	{
-		if (line[i] != '1' && line[i] != '0' && !is_valid_map_char(line[i]))
+		if (!is_valid_map_char(line[i]))
 			return (false);
 		i++;
 	}
