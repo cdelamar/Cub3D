@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdelamar <cdelamar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:11:14 by cdelamar          #+#    #+#             */
-/*   Updated: 2023/10/19 15:14:34 by cdelamar         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:37:37 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,18 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <limits.h>
 
 /* ft_atoi */
 /* converti une chaine de caractere en un entier */
 
 int	ft_atoi(const char *nptr)
 {
-	int	sign;
-	int	num;
+	int		sign;
+	long	result;
 
 	sign = 1;
-	num = 0;
+	result = 0;
 	while ((*nptr >= 9 && *nptr <= 13) || *nptr == ' ')
 		nptr++;
 	if (*nptr == '-' || *nptr == '+')
@@ -36,10 +37,12 @@ int	ft_atoi(const char *nptr)
 	}
 	while (*nptr >= '0' && *nptr <= '9')
 	{
-		num = num * 10 + (*nptr - '0');
+		result = result * 10 + (*nptr - '0');
+		if (result > INT_MAX || result * -1 < INT_MIN)
+			return (-1);
 		nptr++;
 	}
-	return (num * sign);
+	return ((int)result * sign);
 }
 
 /*int	ft_atoi(const char *nptr)

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   args.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/18 16:42:50 by lgalloux          #+#    #+#             */
+/*   Updated: 2025/01/18 16:42:51 by lgalloux         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-bool valid_texture_file(t_textures *textures)
+bool	valid_texture_file(t_textures *textures)
 {
 	if (rev_strncmp(textures->north, ".xpm", 4))
 	{

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bfs.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/18 16:42:52 by lgalloux          #+#    #+#             */
+/*   Updated: 2025/01/18 16:42:54 by lgalloux         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	print_map(char **map)
@@ -29,10 +41,8 @@ bool	map_is_closed(t_game *game)
 		return (false);
 	}
 	copy_map_into_bigmap(game, bigmap);
-	// print_map(bigmap);
 	if (find_player_spawn(game, bigmap) == EXIT_FAILURE)
 		error_pos(game, bigmap);
-	// print_map(bigmap);
 	closed = is_closed(bigmap, game->player.pos_y, game->player.pos_x, 0);
 	while (bigmap[i])
 	{

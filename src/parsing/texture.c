@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   texture.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/18 16:43:26 by lgalloux          #+#    #+#             */
+/*   Updated: 2025/01/18 16:43:27 by lgalloux         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	check_texture_files(t_textures *textures)
@@ -35,10 +47,8 @@ int	check_texture(t_game *game)
 	}
 	if (check_texture_files(&game->textures) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	// je crois
 	if (valid_texture_file(&game->textures) == false)
 		return (EXIT_FAILURE);
-	// pas sur
 	return (EXIT_SUCCESS);
 }
 

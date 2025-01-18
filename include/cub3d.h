@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:51:42 by cdelamar          #+#    #+#             */
-/*   Updated: 2025/01/17 15:19:19 by lgalloux         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:44:23 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,6 @@ char	*remove_spaces(const char *line);
 int		fill_map_block(t_game *game, char **line, int line_count, int *i);
 int		fill_map(t_game *game, int line_count);
 bool	valid_texture_file(t_textures *textures);
-
 
 // ---> free.c
 void	free_path_textures(t_game *game);

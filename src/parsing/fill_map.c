@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/18 16:43:11 by lgalloux          #+#    #+#             */
+/*   Updated: 2025/01/18 16:43:13 by lgalloux         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 char	*remove_spaces(const char *line)
@@ -45,7 +57,7 @@ static bool	is_texture_or_color(char *line)
 	else if (!ft_strncmp(line, "SO ", 3))
 		return (true);
 	else if (!ft_strncmp(line, "EA ", 3))
-		return (true); 
+		return (true);
 	else if (!ft_strncmp(line, "WE ", 3))
 		return (true);
 	else if (!ft_strncmp(line, "F ", 2))
